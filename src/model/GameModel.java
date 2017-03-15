@@ -12,6 +12,15 @@ public class GameModel {
     private int tools;
     private int groupSize;
 
+    public static final int DEFAULT_HEALTH = 50;
+    public static final int DEFAULT_FOOD = 50;
+    public static final int DEFAULT_WATER = 50;
+    public static final int DEFAULT_CLOTHING = 50;
+    public static final int DEFAULT_STORAGE = 50;
+    public static final int DEFAULT_TOOLS = 50;
+    public static final int DEFAULT_GROUP_SIZE = 50;
+
+
     public GameModel(int health, int food, int water, int groupSize, int tools, int storage, int clothing) {
         this.health = health;
         this.food = food;
@@ -20,6 +29,16 @@ public class GameModel {
         this.tools = tools;
         this.storage = storage;
         this.clothing = clothing;
+    }
+
+    public GameModel(){
+        this.health = DEFAULT_HEALTH;
+        this.food = DEFAULT_FOOD;
+        this.water = DEFAULT_WATER;
+        this.groupSize = DEFAULT_GROUP_SIZE;
+        this.tools = DEFAULT_TOOLS;
+        this.storage = DEFAULT_STORAGE;
+        this.clothing = DEFAULT_CLOTHING;
     }
 
     public int getHealth() {
