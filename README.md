@@ -10,3 +10,8 @@ before the rise of agriculture.  Built using Java and the JavaFx framework.
 ## Notes:
 
 - Currently in early stages of development/design.
+
+## Trello:
+
+- Development process can be tracked through Trello
+- https://trello.com/b/aFLrFXav
