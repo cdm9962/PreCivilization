@@ -12,12 +12,12 @@ public class GameModel {
     private int tools;
     private int groupSize;
 
-    public static final int DEFAULT_HEALTH = 50;
-    public static final int DEFAULT_FOOD = 50;
-    public static final int DEFAULT_WATER = 50;
-    public static final int DEFAULT_CLOTHING = 50;
-    public static final int DEFAULT_STORAGE = 50;
-    public static final int DEFAULT_TOOLS = 50;
+    public static final int DEFAULT_HEALTH = 100;
+    public static final int DEFAULT_FOOD = 100;
+    public static final int DEFAULT_WATER = 100;
+    public static final int DEFAULT_CLOTHING = 100;
+    public static final int DEFAULT_STORAGE = 100;
+    public static final int DEFAULT_TOOLS = 100;
     public static final int DEFAULT_GROUP_SIZE = 50;
 
 
