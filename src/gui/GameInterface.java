@@ -1,6 +1,11 @@
 package gui;
 
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import model.GameModel;
 
@@ -27,6 +32,7 @@ public class GameInterface extends Application implements Observer {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle(TITLE);
+        primaryStage.setScene(new Scene(makeBorder()));
         primaryStage.setResizable(false);
         primaryStage.show();
     }
@@ -39,5 +45,17 @@ public class GameInterface extends Application implements Observer {
     @Override
     public void update(Observable o, Object arg) {
 
+    }
+
+    private BorderPane makeBorder(){
+        BorderPane border = new BorderPane();
+        border.setTop(makeLabel());
+        return border;
+    }
+
+    private Pane makeLabel(){
+        Label label = new Label("Welcome to PreCivilization!");
+        Pane pane = new Pane(label);
+        return pane;
     }
 }
