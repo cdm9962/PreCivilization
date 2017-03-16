@@ -1,9 +1,12 @@
 package model;
 
 /**
+ * The model for the game.  Updates based on user interactions and choices.
+ *
  * @author Connor D. Milligan
  */
 public class GameModel {
+    // The private state of the model
     private int health;
     private int food;
     private int water;
@@ -12,6 +15,7 @@ public class GameModel {
     private int tools;
     private int groupSize;
 
+    // Constant/Default values for the game model
     public static final int DEFAULT_HEALTH = 100;
     public static final int DEFAULT_FOOD = 100;
     public static final int DEFAULT_WATER = 100;
@@ -20,25 +24,37 @@ public class GameModel {
     public static final int DEFAULT_TOOLS = 100;
     public static final int DEFAULT_GROUP_SIZE = 50;
 
-
-    public GameModel(int health, int food, int water, int groupSize, int tools, int storage, int clothing) {
+    /**
+     * Manual constructor for testing.
+     * @param health the overall health of the group
+     * @param food the amount of food currently stored
+     * @param water the amount of water currently stored
+     * @param tools the amount of tools currently stored
+     * @param storage the amount of storage currently available
+     * @param clothing the amount of clothing currently stored
+     * @param groupSize the number of people in the group
+     */
+    public GameModel(int health, int food, int water, int clothing, int storage, int tools, int groupSize) {
         this.health = health;
         this.food = food;
         this.water = water;
-        this.groupSize = groupSize;
-        this.tools = tools;
-        this.storage = storage;
         this.clothing = clothing;
+        this.storage = storage;
+        this.tools = tools;
+        this.groupSize = groupSize;
     }
 
+    /**
+     * Default constructor.
+     */
     public GameModel(){
         this.health = DEFAULT_HEALTH;
         this.food = DEFAULT_FOOD;
         this.water = DEFAULT_WATER;
-        this.groupSize = DEFAULT_GROUP_SIZE;
-        this.tools = DEFAULT_TOOLS;
-        this.storage = DEFAULT_STORAGE;
         this.clothing = DEFAULT_CLOTHING;
+        this.storage = DEFAULT_STORAGE;
+        this.tools = DEFAULT_TOOLS;
+        this.groupSize = DEFAULT_GROUP_SIZE;
     }
 
     public int getHealth() {
