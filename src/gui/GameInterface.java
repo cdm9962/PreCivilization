@@ -3,15 +3,14 @@ package gui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import model.GameModel;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -70,12 +69,13 @@ public class GameInterface extends Application implements Observer {
         border.setTop(makeTopLabel());
         border.setLeft(makeLeftLabel());
         border.setRight(makeBars());
+        border.setBottom(makeUserBox());
         return border;
     }
 
     /**
      * Method to create the text label at the top of the application.
-     * @return
+     * @return Pane representing the top label
      */
     private Pane makeTopLabel(){
         Label label = new Label("Welcome to PreCivilization!");
@@ -83,37 +83,15 @@ public class GameInterface extends Application implements Observer {
         return pane;
     }
 
+    /**
+     * Method to create the splash screen at the left of the application.
+     * @return Pane representing the left label
+     */
     private Pane makeLeftLabel() {
-//        Label label = new Label();
-//        label.setMinSize(1000, 1000);
-//        label.setWrapText(true);
-//        label.setFont(new Font("Monospaced", 20));
-//
-//        try {
-//            String logo = scanLogo();
-//            label.setText(logo);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-
         Image image = new Image("file:splash.png");
         ImageView logo = new ImageView(image);
         Pane pane = new Pane(logo);
         return pane;
-    }
-
-    private String scanLogo() throws FileNotFoundException {
-        InputStream stream = new FileInputStream("splashLogo.txt");
-        Scanner scanner = new Scanner(stream);
-        String logo = " ";
-
-        while (scanner.hasNextLine()){
-            logo += scanner.nextLine();
-            logo += "\n ";
-            System.out.println(logo);
-        }
-
-        return logo;
     }
 
     /**
@@ -210,6 +188,19 @@ public class GameInterface extends Application implements Observer {
         col--;
         row++;
 
+        return grid;
+    }
+
+    /**
+     * Method to create the user input box on the bottom of the pane.
+     * @return GridPane representing the user input section
+     */
+    private GridPane makeUserBox(){
+        GridPane grid = new GridPane();
+        Label title = new Label("Enter Command: ");
+        grid.add(title, 0, 0);
+        TextField input = new TextField();
+        grid.add(input, 1, 0);
         return grid;
     }
 }
