@@ -3,13 +3,21 @@ package gui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import model.GameModel;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Scanner;
 
 /**
  * The graphical user interface object for the game. Displays the game data.
@@ -59,7 +67,8 @@ public class GameInterface extends Application implements Observer {
      */
     private BorderPane makeBorder(){
         BorderPane border = new BorderPane();
-        border.setTop(makeLabel());
+        border.setTop(makeTopLabel());
+        border.setLeft(makeLeftLabel());
         border.setRight(makeBars());
         return border;
     }
@@ -68,10 +77,43 @@ public class GameInterface extends Application implements Observer {
      * Method to create the text label at the top of the application.
      * @return
      */
-    private Pane makeLabel(){
+    private Pane makeTopLabel(){
         Label label = new Label("Welcome to PreCivilization!");
         Pane pane = new Pane(label);
         return pane;
+    }
+
+    private Pane makeLeftLabel() {
+//        Label label = new Label();
+//        label.setMinSize(1000, 1000);
+//        label.setWrapText(true);
+//        label.setFont(new Font("Monospaced", 20));
+//
+//        try {
+//            String logo = scanLogo();
+//            label.setText(logo);
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+
+        Image image = new Image("file:splash.png");
+        ImageView logo = new ImageView(image);
+        Pane pane = new Pane(logo);
+        return pane;
+    }
+
+    private String scanLogo() throws FileNotFoundException {
+        InputStream stream = new FileInputStream("splashLogo.txt");
+        Scanner scanner = new Scanner(stream);
+        String logo = " ";
+
+        while (scanner.hasNextLine()){
+            logo += scanner.nextLine();
+            logo += "\n ";
+            System.out.println(logo);
+        }
+
+        return logo;
     }
 
     /**
