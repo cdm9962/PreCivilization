@@ -11,12 +11,8 @@ import javafx.stage.Stage;
 
 import model.GameModel;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Scanner;
 
 /**
  * The graphical user interface object for the game. Displays the game data.
