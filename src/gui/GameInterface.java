@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -23,6 +24,11 @@ public class GameInterface extends Application implements Observer {
     // the model of the game, holds the private state data
     private GameModel model;
 
+    private BorderPane playScreen;
+    private GridPane resourceBars;
+
+    private String userCommand;
+
     // Constant/Default values for the game interface
     public static final String TITLE = "PreCivilization";
 
@@ -31,6 +37,8 @@ public class GameInterface extends Application implements Observer {
      */
     public GameInterface(){
         this.model = new GameModel();
+        this.playScreen = null;
+        this.userCommand = null;
     }
 
     @Override
@@ -53,7 +61,13 @@ public class GameInterface extends Application implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        if(userCommand.equals("Start Game")) {
+            playScreen.setLeft(new Pane(new Label("Hello")));
+        }
 
+        if(userCommand.equals("Attack")){
+            ((HBox) resourceBars.getChildren().get(1)).setMaxWidth(50);
+        }
     }
 
     /**
@@ -66,6 +80,7 @@ public class GameInterface extends Application implements Observer {
         border.setLeft(makeLeftLabel());
         border.setRight(makeBars());
         border.setBottom(makeUserBox());
+        playScreen = border;
         return border;
     }
 
@@ -128,7 +143,7 @@ public class GameInterface extends Application implements Observer {
         grid.add(healthLabel, col, row);
         col++;
         HBox healthBox = new HBox();
-        healthBox.setMinSize(model.getHealth(), DEFAULT_HIGHT);
+        healthBox.setPrefSize(model.getHealth(), DEFAULT_HIGHT);
         healthBox.setStyle(HEALTH_COLOR);
         grid.add(healthBox, col, row);
         col--;
@@ -184,6 +199,7 @@ public class GameInterface extends Application implements Observer {
         col--;
         row++;
 
+        resourceBars = grid;
         return grid;
     }
 
@@ -197,6 +213,23 @@ public class GameInterface extends Application implements Observer {
         grid.add(title, 0, 0);
         TextField input = new TextField();
         grid.add(input, 1, 0);
+
+        input.setOnKeyPressed(event -> {
+            if(event.getCode().equals(KeyCode.ENTER)){
+                String command = input.getCharacters().toString();
+                if(command.equals("Start Game")){
+                    System.out.println("Starting Game...");
+                    userCommand = command;
+                    update(model, this);
+                } else if(command.equals("Attack")){
+                    System.out.println("Attacking...");
+                    userCommand = command;
+                    update(model,this);
+                }
+            }
+        });
+
+
         return grid;
     }
 }

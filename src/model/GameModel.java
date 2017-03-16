@@ -1,11 +1,13 @@
 package model;
 
+import java.util.Observable;
+
 /**
  * The model for the game.  Updates based on user interactions and choices.
  *
  * @author Connor D. Milligan
  */
-public class GameModel {
+public class GameModel extends Observable {
     // The private state of the model
     private int health;
     private int food;
