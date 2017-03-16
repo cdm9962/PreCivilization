@@ -14,7 +14,7 @@ before the rise of agriculture.  Built using Java and the JavaFx framework.
 ## Updates:
 
 - Update 1: Completed basic GUI initialization.
-![alt tag](https://ibb.co/iLeUBF)
+![alt tag](https://preview.ibb.co/d3J0Jv/Update1.png)
 
 ## Trello:
 
