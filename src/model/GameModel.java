@@ -59,6 +59,18 @@ public class GameModel extends Observable {
         this.groupSize = DEFAULT_GROUP_SIZE;
     }
 
+    public void takeDamage(int damage){
+        this.setHealth(this.getHealth() - damage);
+        if(this.getHealth() < 0){
+            this.setHealth(0);
+            System.out.println("YOU ARE KILL");
+        }
+    }
+
+    public boolean isDead(){
+        return this.getHealth() == 0;
+    }
+
     public int getHealth() {
         return health;
     }

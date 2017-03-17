@@ -18,5 +18,5 @@ before the rise of agriculture.  Built using Java and the JavaFx framework.
 
 ## Trello:
 
-- Development process can be tracked through Trello
+- Development process can be tracked through Trello.
 - https://trello.com/b/aFLrFXav

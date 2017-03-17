@@ -10,13 +10,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import model.Event;
 import model.GameModel;
+import model.Tornado;
 
 import java.util.Observable;
 import java.util.Observer;
 
 /**
- * The graphical user interface object for the game. Displays the game data.
+ * The graphical user interface for the game. Displays the game data.
  *
  * @author Connor D. Milligan
  */
@@ -28,6 +30,7 @@ public class GameInterface extends Application implements Observer {
     private GridPane resourceBars;
 
     private String userCommand;
+    private Event currentEvent;
 
     // Constant/Default values for the game interface
     public static final String TITLE = "PreCivilization";
@@ -39,6 +42,7 @@ public class GameInterface extends Application implements Observer {
         this.model = new GameModel();
         this.playScreen = null;
         this.userCommand = null;
+        this.currentEvent = null;
     }
 
     @Override
@@ -61,12 +65,41 @@ public class GameInterface extends Application implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        // Launches the first game section
         if(userCommand.equals("Start Game")) {
             playScreen.setLeft(new Pane(new Label("Hello")));
         }
 
+        // Test code for resource bar manipulation
         if(userCommand.equals("Attack")){
-            ((HBox) resourceBars.getChildren().get(1)).setMaxWidth(50);
+            System.out.println(model.getHealth());
+            model.takeDamage(10);
+            ((HBox) resourceBars.getChildren().get(1)).setMaxWidth(model.getHealth());
+            ((Label) resourceBars.getChildren().get(0)).setText("Health:\t" + model.getHealth());
+            if(model.isDead()) {
+                playScreen.setLeft(new Pane(new Label("Thanks for play, GG no Re")));
+            }
+        }
+
+        if(userCommand.equals("Tornado")){
+            Event event = new Tornado();
+            currentEvent = event;
+            playScreen.setLeft(new Pane(new Label(event.startEvent())));
+        }
+
+        if(userCommand.equals("run")){
+            playScreen.setLeft(new Pane(new Label(currentEvent.endEvent(model, userCommand))));
+        }
+
+        if(userCommand.equals("hide")){
+            model.setFood((int) (model.getFood() * 0.95));
+            ((HBox) resourceBars.getChildren().get(3)).setMaxWidth(model.getFood());
+            ((Label) resourceBars.getChildren().get(2)).setText("Food:\t" + model.getFood());
+
+            model.setGroupSize(model.getGroupSize() - 2);
+            ((Label) resourceBars.getChildren().get(10)).setText("Group Size: " + model.getGroupSize());
+
+            playScreen.setLeft(new Pane(new Label(currentEvent.endEvent(model, userCommand))));
         }
     }
 
@@ -139,7 +172,8 @@ public class GameInterface extends Application implements Observer {
         grid.setVgap(10);
 
         // Creates the health bar and label
-        Label healthLabel = new Label(HEALTH_TITLE);
+        String healthValue = Integer.toString(model.getHealth());
+        Label healthLabel = new Label(HEALTH_TITLE + ":\t" + healthValue);
         grid.add(healthLabel, col, row);
         col++;
         HBox healthBox = new HBox();
@@ -154,7 +188,7 @@ public class GameInterface extends Application implements Observer {
         grid.add(foodLabel, col, row);
         col++;
         HBox foodBox = new HBox();
-        foodBox.setMinSize(model.getFood(), DEFAULT_HIGHT);
+        foodBox.setPrefSize(model.getFood(), DEFAULT_HIGHT);
         foodBox.setStyle(FOOD_COLOR);
         grid.add(foodBox, col, row);
         col--;
@@ -224,11 +258,22 @@ public class GameInterface extends Application implements Observer {
                 } else if(command.equals("Attack")){
                     System.out.println("Attacking...");
                     userCommand = command;
-                    update(model,this);
+                    update(model, this);
+                } else if(command.equals("Tornado")){
+                    System.out.println("Tornado...");
+                    userCommand = command;
+                    update(model, this);
+                } else if(command.equals("run")){
+                    System.out.println("Running...");
+                    userCommand = command;
+                    update(model, this);
+                } else if(command.equals("hide")){
+                    System.out.println("Hiding...");
+                    userCommand = command;
+                    update(model, this);
                 }
             }
         });
-
 
         return grid;
     }
