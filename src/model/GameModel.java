@@ -17,6 +17,7 @@ public class GameModel extends Observable {
     private int tools;
     private int morale;
     private int groupSize;
+    private Allocations allocations;
 
     // Constant/Default values for the game model
     public static final int DEFAULT_HEALTH = 100;
@@ -86,8 +87,9 @@ public class GameModel extends Observable {
     }
 
     ///
-    /// Getter and Setter methods for the private state
+    /// Getter and Setter methods for the private state.
     ///
+
     public int getHealth() {
         return health;
     }
@@ -146,5 +148,21 @@ public class GameModel extends Observable {
 
     public void setGroupSize(int groupSize) {
         this.groupSize = groupSize;
+    }
+
+    public int getMorale() {
+        return morale;
+    }
+
+    public void setMorale(int morale) {
+        this.morale = morale;
+    }
+
+    public Allocations getAllocations() {
+        return allocations;
+    }
+
+    public void setAllocations(Allocations allocations) {
+        this.allocations = allocations;
     }
 }

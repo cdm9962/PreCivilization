@@ -15,6 +15,13 @@ public class Allocations {
     private int toolsAlloc;
     private int moraleAlloc;
 
+    public static final int DEFAULT_ALLOC = 0;
+    public static final int DECREMENT = -1;
+    public static final int INCREMENT = 1;
+    public static final String DECREMENT_BUTTON = "<";
+    public static final String INCREMENT_BUTTON = ">";
+    public static final String HUNTING_LABEL = "Hunting";
+
     public Allocations(int huntingAlloc, int gatheringAlloc, int waterAlloc, int clothingAlloc, int storageAlloc, int toolsAlloc, int moraleAlloc) {
         this.huntingAlloc = huntingAlloc;
         this.gatheringAlloc = gatheringAlloc;
@@ -25,12 +32,25 @@ public class Allocations {
         this.moraleAlloc = moraleAlloc;
     }
 
+    public Allocations() {
+        this.huntingAlloc = DEFAULT_ALLOC;
+        this.gatheringAlloc = DEFAULT_ALLOC;
+        this.waterAlloc = DEFAULT_ALLOC;
+        this.clothingAlloc = DEFAULT_ALLOC;
+        this.storageAlloc = DEFAULT_ALLOC;
+        this.toolsAlloc = DEFAULT_ALLOC;
+        this.moraleAlloc = DEFAULT_ALLOC;
+    }
+
     public int getHuntingAlloc() {
         return huntingAlloc;
     }
 
-    public void setHuntingAlloc(int huntingAlloc) {
-        this.huntingAlloc = huntingAlloc;
+    public void setHuntingAlloc(int change) {
+        huntingAlloc += change;
+        if(huntingAlloc < 0){
+            huntingAlloc = 0;
+        }
     }
 
     public int getGatheringAlloc() {

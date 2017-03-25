@@ -13,6 +13,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import model.Allocations;
 import model.events.Event;
 import model.GameModel;
 import model.events.StartGame;
@@ -93,7 +94,8 @@ public class GameInterface extends Application implements Observer {
             topLabel.setText(StartRound.EVENT_NAME);
             currentEvent = new StartRound();
             updatePlayScreen(currentEvent.startEvent());
-            GridPane allocationGrid = new GridPane();
+            GridPane allocationGrid = makeAllocationGrid();
+            playScreen.setLeft(allocationGrid);
         }
 
 
@@ -141,6 +143,29 @@ public class GameInterface extends Application implements Observer {
         Label label = new Label(text);
         label.setPadding(new Insets(5.0));
         playScreen.setLeft(new Pane(label));
+    }
+
+    public GridPane makeAllocationGrid(){
+        model.setAllocations(new Allocations());
+        GridPane grid = new GridPane();
+        grid.setHgap(5.0);
+        grid.setVgap(5.0);
+
+        Button huntingDecrease = new Button(Allocations.DECREMENT_BUTTON);
+        Label huntingLabel = new Label(Allocations.HUNTING_LABEL);
+        Button huntingIncrease = new Button(Allocations.INCREMENT_BUTTON);
+        grid.add(huntingDecrease, 0, 0);
+        grid.add(huntingLabel, 1, 0);
+        grid.add(huntingIncrease, 2, 0);
+
+        huntingDecrease.setOnAction(event -> {
+            model.getAllocations().setHuntingAlloc(Allocations.DECREMENT);
+            grid.add(new Label(Allocations.HUNTING_LABEL + model.getAllocations().getHuntingAlloc()), 1, 0);
+        });
+
+        return grid;
+
+
     }
 
     /**
