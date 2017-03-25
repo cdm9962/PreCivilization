@@ -256,10 +256,27 @@ public class GameInterface extends Application implements Observer {
             ((Label) grid.getChildren().get(13)).setText(Allocations.TOOLS_LABEL + ": " + model.getAllocations().getToolsAlloc());
         });
 
+        // Creates the morale buttons and label
+        Button moraleDecrease = new Button(Allocations.DECREMENT_BUTTON);
+        Label moraleLabel = new Label(Allocations.MORALE_LABEL + ": " + model.getAllocations().getMoraleAlloc());
+        Button moraleIncrease = new Button(Allocations.INCREMENT_BUTTON);
+        grid.add(moraleDecrease, 0, 5);
+        grid.add(moraleLabel, 1, 5);
+        grid.add(moraleIncrease, 2, 5);
+
+        // Sets actions for the morale allocation buttons
+        moraleDecrease.setOnAction(event -> {
+            model.getAllocations().setMoraleAlloc(Allocations.DECREMENT);
+            ((Label) grid.getChildren().get(16)).setText(Allocations.MORALE_LABEL + ": " + model.getAllocations().getMoraleAlloc());
+        });
+        moraleIncrease.setOnAction(event -> {
+            if(model.getAllocations().getTotalAllocation() < model.getGroupSize()) {
+                model.getAllocations().setMoraleAlloc(Allocations.INCREMENT);
+            }
+            ((Label) grid.getChildren().get(16)).setText(Allocations.MORALE_LABEL + ": " + model.getAllocations().getMoraleAlloc());
+        });
 
         return grid;
-
-
     }
 
     /**

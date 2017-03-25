@@ -79,6 +79,10 @@ public class Allocations {
         return huntingAlloc;
     }
 
+    /**
+     * Setter method for the hunting allocation.
+     * @param change int representing the amount to change the hunting allocation
+     */
     public void setHuntingAlloc(int change) {
         huntingAlloc += change;
         if(huntingAlloc < 0){
@@ -94,6 +98,10 @@ public class Allocations {
         return gatheringAlloc;
     }
 
+    /**
+     * Setter method for the gathering allocation.
+     * @param change int representing the amount to change the gathering allocation
+     */
     public void setGatheringAlloc(int change) {
         gatheringAlloc += change;
         if(gatheringAlloc < 0){
@@ -109,6 +117,10 @@ public class Allocations {
         return waterAlloc;
     }
 
+    /**
+     * Setter method for the water allocation.
+     * @param change int representing the amount to change the water allocation
+     */
     public void setWaterAlloc(int change) {
         waterAlloc += change;
         if(waterAlloc < 0){
@@ -124,6 +136,10 @@ public class Allocations {
         return clothingAlloc;
     }
 
+    /**
+     * Setter method for the clothing allocation.
+     * @param change int representing the amount to change the clothing allocation
+     */
     public void setClothingAlloc(int change) {
         clothingAlloc += change;
         if(clothingAlloc < 0){
@@ -139,8 +155,15 @@ public class Allocations {
         return storageAlloc;
     }
 
-    public void setStorageAlloc(int storageAlloc) {
-        this.storageAlloc = storageAlloc;
+    /**
+     * Setter method for the storage allocation.
+     * @param change int representing the amount to change the storage allocation
+     */
+    public void setStorageAlloc(int change) {
+        storageAlloc += change;
+        if(storageAlloc < 0){
+            storageAlloc = 0;
+        }
     }
 
     /**
@@ -151,6 +174,10 @@ public class Allocations {
         return toolsAlloc;
     }
 
+    /**
+     * Setter method for the tools allocation.
+     * @param change int representing the amount to change the tools allocation
+     */
     public void setToolsAlloc(int change) {
         toolsAlloc += change;
         if(toolsAlloc < 0){
@@ -166,7 +193,14 @@ public class Allocations {
         return moraleAlloc;
     }
 
-    public void setMoraleAlloc(int moraleAlloc) {
-        this.moraleAlloc = moraleAlloc;
+    /**
+     * Setter method for the morale allocation.
+     * @param change int representing the amount to change the morale allocation
+     */
+    public void setMoraleAlloc(int change) {
+        moraleAlloc += change;
+        if(moraleAlloc < 0){
+            moraleAlloc = 0;
+        }
     }
 }
