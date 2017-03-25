@@ -88,7 +88,7 @@ public class GameInterface extends Application implements Observer {
                 });
             });
 
-        // Asks for users resource allocation and starts a play round
+        // Asks for users resource allocation and starts a game round
         } else if(userCommand.equals(StartRound.EVENT_NAME)){
             topLabel.setText(StartRound.EVENT_NAME);
             currentEvent = new StartRound();
