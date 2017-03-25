@@ -145,12 +145,18 @@ public class GameInterface extends Application implements Observer {
         playScreen.setLeft(new Pane(label));
     }
 
+    /**
+     * Method to create the allocation grid for user selection.
+     * @return GridPane representing the buttons and labels for the allocation grid
+     */
     public GridPane makeAllocationGrid(){
+        // Sets the default allocations and creates the allocation grid
         model.setAllocations(new Allocations());
         GridPane grid = new GridPane();
         grid.setHgap(5.0);
         grid.setVgap(5.0);
 
+        // Creates the hunting buttons and label
         Button huntingDecrease = new Button(Allocations.DECREMENT_BUTTON);
         Label huntingLabel = new Label(Allocations.HUNTING_LABEL);
         Button huntingIncrease = new Button(Allocations.INCREMENT_BUTTON);
@@ -158,9 +164,16 @@ public class GameInterface extends Application implements Observer {
         grid.add(huntingLabel, 1, 0);
         grid.add(huntingIncrease, 2, 0);
 
+        // Sets actions for the hunting allocation buttons
         huntingDecrease.setOnAction(event -> {
             model.getAllocations().setHuntingAlloc(Allocations.DECREMENT);
-            grid.add(new Label(Allocations.HUNTING_LABEL + model.getAllocations().getHuntingAlloc()), 1, 0);
+            ((Label) grid.getChildren().get(1)).setText(Allocations.HUNTING_LABEL + " " + model.getAllocations().getHuntingAlloc());
+        });
+        huntingIncrease.setOnAction(event -> {
+            if(model.getAllocations().getHuntingAlloc() < model.getGroupSize()) {
+                model.getAllocations().setHuntingAlloc(Allocations.INCREMENT);
+            }
+            ((Label) grid.getChildren().get(1)).setText(Allocations.HUNTING_LABEL + " " + model.getAllocations().getHuntingAlloc());
         });
 
         return grid;
