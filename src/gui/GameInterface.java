@@ -236,6 +236,26 @@ public class GameInterface extends Application implements Observer {
             ((Label) grid.getChildren().get(10)).setText(Allocations.CLOTHING_LABEL + ": " + model.getAllocations().getClothingAlloc());
         });
 
+        // Creates the tools buttons and label
+        Button toolsDecrease = new Button(Allocations.DECREMENT_BUTTON);
+        Label toolsLabel = new Label(Allocations.TOOLS_LABEL + ": " + model.getAllocations().getToolsAlloc());
+        Button toolsIncrease = new Button(Allocations.INCREMENT_BUTTON);
+        grid.add(toolsDecrease, 0, 4);
+        grid.add(toolsLabel, 1, 4);
+        grid.add(toolsIncrease, 2, 4);
+
+        // Sets actions for the tools allocation buttons
+        toolsDecrease.setOnAction(event -> {
+            model.getAllocations().setToolsAlloc(Allocations.DECREMENT);
+            ((Label) grid.getChildren().get(13)).setText(Allocations.TOOLS_LABEL + ": " + model.getAllocations().getToolsAlloc());
+        });
+        toolsIncrease.setOnAction(event -> {
+            if(model.getAllocations().getTotalAllocation() < model.getGroupSize()) {
+                model.getAllocations().setToolsAlloc(Allocations.INCREMENT);
+            }
+            ((Label) grid.getChildren().get(13)).setText(Allocations.TOOLS_LABEL + ": " + model.getAllocations().getToolsAlloc());
+        });
+
 
         return grid;
 

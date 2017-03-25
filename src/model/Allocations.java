@@ -63,10 +63,18 @@ public class Allocations {
         this.moraleAlloc = DEFAULT_ALLOC;
     }
 
+    /**
+     * Method for checking to total player allocation.
+     * @return int representing the total number of people currently allocated
+     */
     public int getTotalAllocation(){
         return huntingAlloc + gatheringAlloc + waterAlloc + clothingAlloc + toolsAlloc + moraleAlloc;
     }
 
+    /**
+     * Getter method for the hunting allocation.
+     * @return int representing the current hunting allocation
+     */
     public int getHuntingAlloc() {
         return huntingAlloc;
     }
@@ -78,6 +86,10 @@ public class Allocations {
         }
     }
 
+    /**
+     * Getter method for the gathering allocation.
+     * @return int representing the current gathering allocation
+     */
     public int getGatheringAlloc() {
         return gatheringAlloc;
     }
@@ -89,6 +101,10 @@ public class Allocations {
         }
     }
 
+    /**
+     * Getter method for the water allocation.
+     * @return int representing the current water allocation
+     */
     public int getWaterAlloc() {
         return waterAlloc;
     }
@@ -100,6 +116,10 @@ public class Allocations {
         }
     }
 
+    /**
+     * Getter method for the clothing allocation.
+     * @return int representing the current hunting allocation
+     */
     public int getClothingAlloc() {
         return clothingAlloc;
     }
@@ -111,6 +131,10 @@ public class Allocations {
         }
     }
 
+    /**
+     * Getter method for the storage allocation.
+     * @return int representing the current storage allocation
+     */
     public int getStorageAlloc() {
         return storageAlloc;
     }
@@ -119,14 +143,25 @@ public class Allocations {
         this.storageAlloc = storageAlloc;
     }
 
+    /**
+     * Getter method for the tools allocation.
+     * @return int representing the current tools allocation
+     */
     public int getToolsAlloc() {
         return toolsAlloc;
     }
 
-    public void setToolsAlloc(int toolsAlloc) {
-        this.toolsAlloc = toolsAlloc;
+    public void setToolsAlloc(int change) {
+        toolsAlloc += change;
+        if(toolsAlloc < 0){
+            toolsAlloc = 0;
+        }
     }
 
+    /**
+     * Getter method for the morale allocation.
+     * @return int representing the current morale allocation
+     */
     public int getMoraleAlloc() {
         return moraleAlloc;
     }
