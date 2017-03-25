@@ -20,7 +20,9 @@ public class Allocations {
     public static final int INCREMENT = 1;
     public static final String DECREMENT_BUTTON = "<";
     public static final String INCREMENT_BUTTON = ">";
+
     public static final String HUNTING_LABEL = "Hunting";
+    public static final String GATHERING_LABEL = "Gathering";
 
     public Allocations(int huntingAlloc, int gatheringAlloc, int waterAlloc, int clothingAlloc, int storageAlloc, int toolsAlloc, int moraleAlloc) {
         this.huntingAlloc = huntingAlloc;
