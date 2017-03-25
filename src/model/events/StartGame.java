@@ -8,6 +8,7 @@ import model.GameModel;
  * @author Connor D. Milligan
  */
 public class StartGame extends Event {
+    // Constant string values for the StartGame event
     public static final String EVENT_NAME = "Start Game";
     public static final String NEXT_BUTTON = "Next";
 

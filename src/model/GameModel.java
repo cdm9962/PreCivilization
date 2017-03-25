@@ -64,18 +64,30 @@ public class GameModel extends Observable {
         this.groupSize = DEFAULT_GROUP_SIZE;
     }
 
+    /**
+     * Method for reducing a players health.
+     * @param damage int representing the amount a damage a player is to take
+     */
     public void takeDamage(int damage){
         this.setHealth(this.getHealth() - damage);
+        // Ensures that health does not drop below zero and checks for death
         if(this.getHealth() < 0){
             this.setHealth(0);
             System.out.println("YOU ARE KILL");
         }
     }
 
+    /**
+     * Method to check if a player has lost the game.
+     * @return boolean representing if the player has lost
+     */
     public boolean isDead(){
         return this.getHealth() == 0;
     }
 
+    ///
+    /// Getter and Setter methods for the private state
+    ///
     public int getHealth() {
         return health;
     }

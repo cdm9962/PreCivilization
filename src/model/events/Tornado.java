@@ -8,6 +8,10 @@ import model.GameModel;
  * @author Connor D. Milligan
  */
 public class Tornado extends Event {
+    // Constant string values for the Tornado event
+    public static final String EVENT_NAME = "Tornado";
+    public static final String NEXT_BUTTON = "Next";
+
     @Override
     public String startEvent() {
         return  "There is a tornado coming,\n" +
