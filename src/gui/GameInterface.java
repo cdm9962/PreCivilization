@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import model.events.Event;
 import model.GameModel;
 import model.events.StartGame;
+import model.events.StartRound;
 import model.events.Tornado;
 
 import java.util.Observable;
@@ -69,15 +70,32 @@ public class GameInterface extends Application implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         // Launches the first game section
-        if(userCommand.equals("Start Game")) {
-            topLabel.setText("Start Game");
-            Event event = new StartGame();
-            currentEvent = event;
+        if(userCommand.equals(StartGame.EVENT_NAME)) {
+            topLabel.setText(StartGame.EVENT_NAME);
+            currentEvent = new StartGame();
             updatePlayScreen(currentEvent.startEvent());
-            Button nextButton = new Button("Next");
-            nextButton.setOnAction(event1 -> updatePlayScreen(currentEvent.endEvent(model, "")));
-            userButtons.getChildren().set(0, nextButton);
+            Button nextButton1 = new Button(StartGame.NEXT_BUTTON);
+            userButtons.getChildren().set(0, nextButton1);
+            nextButton1.setOnAction(event1 -> {
+                updatePlayScreen(currentEvent.endEvent(model, ""));
+                Button nextButton2 = new Button(StartGame.NEXT_BUTTON);
+                userButtons.getChildren().set(0, nextButton2);
+                nextButton2.setOnAction(event2 -> {
+                    userCommand = StartRound.EVENT_NAME;
+                    update(model, this);
+                });
+            });
+
+        // Asks for users resource allocation and starts a play round
+        } else if(userCommand.equals(StartRound.EVENT_NAME)){
+            topLabel.setText(StartRound.EVENT_NAME);
+            currentEvent = new StartRound();
+            updatePlayScreen(currentEvent.startEvent());
         }
+
+
+
+
 
         // Test code for resource bar manipulation
         if(userCommand.equals("Attack")){

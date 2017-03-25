@@ -3,19 +3,18 @@ package model.events;
 import model.GameModel;
 
 /**
- * Start Game event class.
+ * Start Round event class.
  *
  * @author Connor D. Milligan
  */
-public class StartGame extends Event {
-    public static final String EVENT_NAME = "Start Game";
+public class StartRound extends Event {
+    public static final String EVENT_NAME = "Start Round";
     public static final String NEXT_BUTTON = "Next";
 
     @Override
     public String startEvent() {
-        return  "Welcome to the world of PreCivilization!\n" +
-                "A computer simulation built to test the difficulties\n" +
-                "and randomness inherent with living in a Pre-agricultural society.\n";
+        return  "Now it is time to allocate how many of your people you want\n" +
+                "to go after a particular resource.";
     }
 
     @Override
@@ -24,4 +23,3 @@ public class StartGame extends Event {
                 "Be careful, you need to make sure that you have a variety of resources.\n";
     }
 }
-
