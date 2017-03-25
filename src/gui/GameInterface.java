@@ -1,6 +1,7 @@
 package gui;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import model.events.Event;
@@ -28,6 +30,7 @@ public class GameInterface extends Application implements Observer {
     // the model of the game, holds the private state data
     private GameModel model;
 
+    private Label topLabel;
     private BorderPane playScreen;
     private GridPane resourceBars;
     private GridPane userButtons;
@@ -67,13 +70,12 @@ public class GameInterface extends Application implements Observer {
     public void update(Observable o, Object arg) {
         // Launches the first game section
         if(userCommand.equals("Start Game")) {
+            topLabel.setText("Start Game");
             Event event = new StartGame();
             currentEvent = event;
             updatePlayScreen(currentEvent.startEvent());
             Button nextButton = new Button("Next");
-            nextButton.setOnAction(event1 -> {
-                updatePlayScreen(currentEvent.endEvent(model, ""));
-            });
+            nextButton.setOnAction(event1 -> updatePlayScreen(currentEvent.endEvent(model, "")));
             userButtons.getChildren().set(0, nextButton);
         }
 
@@ -115,7 +117,9 @@ public class GameInterface extends Application implements Observer {
      * @param text String representing the text to display on the screen
      */
     public void updatePlayScreen(String text){
-        playScreen.setLeft(new Pane(new Label(text)));
+        Label label = new Label(text);
+        label.setPadding(new Insets(5.0));
+        playScreen.setLeft(new Pane(label));
     }
 
     /**
@@ -124,6 +128,7 @@ public class GameInterface extends Application implements Observer {
      */
     private BorderPane makeBorder(){
         BorderPane border = new BorderPane();
+        border.setPadding(new Insets(5.0));
         border.setTop(makeTopLabel());
         border.setLeft(makeLeftLabel());
         border.setRight(makeBars());
@@ -139,6 +144,9 @@ public class GameInterface extends Application implements Observer {
     private Pane makeTopLabel(){
         Label label = new Label("Welcome to PreCivilization!");
         Pane pane = new Pane(label);
+        topLabel = label;
+        topLabel.setFont(new Font(20.0));
+        topLabel.setPadding(new Insets(0.0, 0.0, 15.0, 5.0));
         return pane;
     }
 
