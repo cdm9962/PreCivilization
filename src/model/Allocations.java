@@ -30,6 +30,16 @@ public class Allocations {
     public static final String TOOLS_LABEL = "Tools";
     public static final String MORALE_LABEL = "Morale";
 
+    /**
+     * Manual constructor.
+     * @param huntingAlloc int representing the number of people allocated to hunting
+     * @param gatheringAlloc int representing the number of people allocated to gathering
+     * @param waterAlloc int representing the number of people allocated to water procurement
+     * @param clothingAlloc int representing the number of people allocated to making clothing
+     * @param storageAlloc int representing the number of people allocated to creating storage
+     * @param toolsAlloc int representing the number of people allocated to making tools
+     * @param moraleAlloc int representing the number of people allocated to increasing happiness
+     */
     public Allocations(int huntingAlloc, int gatheringAlloc, int waterAlloc, int clothingAlloc, int storageAlloc, int toolsAlloc, int moraleAlloc) {
         this.huntingAlloc = huntingAlloc;
         this.gatheringAlloc = gatheringAlloc;
@@ -40,6 +50,9 @@ public class Allocations {
         this.moraleAlloc = moraleAlloc;
     }
 
+    /**
+     * Constructor for Allocations.
+     */
     public Allocations() {
         this.huntingAlloc = DEFAULT_ALLOC;
         this.gatheringAlloc = DEFAULT_ALLOC;
@@ -91,8 +104,11 @@ public class Allocations {
         return clothingAlloc;
     }
 
-    public void setClothingAlloc(int clothingAlloc) {
-        this.clothingAlloc = clothingAlloc;
+    public void setClothingAlloc(int change) {
+        clothingAlloc += change;
+        if(clothingAlloc < 0){
+            clothingAlloc = 0;
+        }
     }
 
     public int getStorageAlloc() {

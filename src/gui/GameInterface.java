@@ -216,6 +216,27 @@ public class GameInterface extends Application implements Observer {
             ((Label) grid.getChildren().get(7)).setText(Allocations.WATER_LABEL + ": " + model.getAllocations().getWaterAlloc());
         });
 
+        // Creates the clothing buttons and label
+        Button clothingDecrease = new Button(Allocations.DECREMENT_BUTTON);
+        Label clothingLabel = new Label(Allocations.CLOTHING_LABEL + ": " + model.getAllocations().getClothingAlloc());
+        Button clothingIncrease = new Button(Allocations.INCREMENT_BUTTON);
+        grid.add(clothingDecrease, 0, 3);
+        grid.add(clothingLabel, 1, 3);
+        grid.add(clothingIncrease, 2, 3);
+
+        // Sets actions for the clothing allocation buttons
+        clothingDecrease.setOnAction(event -> {
+            model.getAllocations().setClothingAlloc(Allocations.DECREMENT);
+            ((Label) grid.getChildren().get(10)).setText(Allocations.CLOTHING_LABEL + ": " + model.getAllocations().getClothingAlloc());
+        });
+        clothingIncrease.setOnAction(event -> {
+            if(model.getAllocations().getTotalAllocation() < model.getGroupSize()) {
+                model.getAllocations().setClothingAlloc(Allocations.INCREMENT);
+            }
+            ((Label) grid.getChildren().get(10)).setText(Allocations.CLOTHING_LABEL + ": " + model.getAllocations().getClothingAlloc());
+        });
+
+
         return grid;
 
 
