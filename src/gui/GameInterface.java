@@ -11,9 +11,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import model.Event;
+import model.events.Event;
 import model.GameModel;
-import model.Tornado;
+import model.events.StartGame;
+import model.events.Tornado;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -29,6 +30,7 @@ public class GameInterface extends Application implements Observer {
 
     private BorderPane playScreen;
     private GridPane resourceBars;
+    private GridPane userButtons;
 
     private String userCommand;
     private Event currentEvent;
@@ -41,9 +43,6 @@ public class GameInterface extends Application implements Observer {
      */
     public GameInterface(){
         this.model = new GameModel();
-        this.playScreen = null;
-        this.userCommand = null;
-        this.currentEvent = null;
     }
 
     @Override
@@ -68,7 +67,14 @@ public class GameInterface extends Application implements Observer {
     public void update(Observable o, Object arg) {
         // Launches the first game section
         if(userCommand.equals("Start Game")) {
-            playScreen.setLeft(new Pane(new Label("Hello")));
+            Event event = new StartGame();
+            currentEvent = event;
+            updatePlayScreen(currentEvent.startEvent());
+            Button nextButton = new Button("Next");
+            nextButton.setOnAction(event1 -> {
+                updatePlayScreen(currentEvent.endEvent(model, ""));
+            });
+            userButtons.getChildren().set(0, nextButton);
         }
 
         // Test code for resource bar manipulation
@@ -102,6 +108,14 @@ public class GameInterface extends Application implements Observer {
 
             playScreen.setLeft(new Pane(new Label(currentEvent.endEvent(model, userCommand))));
         }
+    }
+
+    /**
+     * Method to update the play screen with new text.
+     * @param text String representing the text to display on the screen
+     */
+    public void updatePlayScreen(String text){
+        playScreen.setLeft(new Pane(new Label(text)));
     }
 
     /**
@@ -250,6 +264,11 @@ public class GameInterface extends Application implements Observer {
         GridPane buttonGrid = new GridPane();
         Button startButton = new Button("Start Game");
         buttonGrid.add(startButton, 0, 0);
+        userButtons = buttonGrid;
+        startButton.setOnAction(event ->{
+            userCommand = "Start Game";
+            update(model, this);
+        });
         return buttonGrid;
     }
 

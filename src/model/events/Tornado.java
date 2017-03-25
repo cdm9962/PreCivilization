@@ -1,7 +1,11 @@
-package model;
+package model.events;
+
+import model.GameModel;
 
 /**
- * Created by Connor on 3/16/2017.
+ * Tornado event class.
+ *
+ * @author Connor D. Milligan
  */
 public class Tornado extends Event {
     @Override

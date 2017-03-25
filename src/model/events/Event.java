@@ -1,4 +1,6 @@
-package model;
+package model.events;
+
+import model.GameModel;
 
 /**
  * Abstract event class.
