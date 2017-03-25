@@ -31,11 +31,13 @@ public class GameInterface extends Application implements Observer {
     // the model of the game, holds the private state data
     private GameModel model;
 
+    // The various UI elements that need to be updated
     private Label topLabel;
     private BorderPane playScreen;
     private GridPane resourceBars;
     private GridPane userButtons;
 
+    // The stored user data
     private String userCommand;
     private Event currentEvent;
 
@@ -91,6 +93,7 @@ public class GameInterface extends Application implements Observer {
             topLabel.setText(StartRound.EVENT_NAME);
             currentEvent = new StartRound();
             updatePlayScreen(currentEvent.startEvent());
+            GridPane allocationGrid = new GridPane();
         }
 
 
@@ -310,47 +313,5 @@ public class GameInterface extends Application implements Observer {
             update(model, this);
         });
         return buttonGrid;
-    }
-
-
-    /**
-     * Method to create the user input box on the bottom of the pane.
-     * @return GridPane representing the user input section
-     */
-    private GridPane makeUserBox(){
-        GridPane grid = new GridPane();
-        Label title = new Label("Enter Command: ");
-        grid.add(title, 0, 0);
-        TextField input = new TextField();
-        grid.add(input, 1, 0);
-
-        input.setOnKeyPressed(event -> {
-            if(event.getCode().equals(KeyCode.ENTER)){
-                String command = input.getCharacters().toString();
-                if(command.equals("Start Game")){
-                    System.out.println("Starting Game...");
-                    userCommand = command;
-                    update(model, this);
-                } else if(command.equals("Attack")){
-                    System.out.println("Attacking...");
-                    userCommand = command;
-                    update(model, this);
-                } else if(command.equals("Tornado")){
-                    System.out.println("Tornado...");
-                    userCommand = command;
-                    update(model, this);
-                } else if(command.equals("run")){
-                    System.out.println("Running...");
-                    userCommand = command;
-                    update(model, this);
-                } else if(command.equals("hide")){
-                    System.out.println("Hiding...");
-                    userCommand = command;
-                    update(model, this);
-                }
-            }
-        });
-
-        return grid;
     }
 }
