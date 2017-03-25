@@ -27,7 +27,7 @@ public class GameModel extends Observable {
     public static final int DEFAULT_STORAGE = 100;
     public static final int DEFAULT_TOOLS = 100;
     public static final int DEFAULT_MORALE = 100;
-    public static final int DEFAULT_GROUP_SIZE = 50;
+    public static final int DEFAULT_GROUP_SIZE = 25;
 
     /**
      * Manual constructor for testing.

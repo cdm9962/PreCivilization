@@ -15,14 +15,20 @@ public class Allocations {
     private int toolsAlloc;
     private int moraleAlloc;
 
+    // Constant button values
     public static final int DEFAULT_ALLOC = 0;
     public static final int DECREMENT = -1;
     public static final int INCREMENT = 1;
     public static final String DECREMENT_BUTTON = "<";
     public static final String INCREMENT_BUTTON = ">";
 
+    // Constant allocation names
     public static final String HUNTING_LABEL = "Hunting";
     public static final String GATHERING_LABEL = "Gathering";
+    public static final String WATER_LABEL = "Water";
+    public static final String CLOTHING_LABEL = "Clothing";
+    public static final String TOOLS_LABEL = "Tools";
+    public static final String MORALE_LABEL = "Morale";
 
     public Allocations(int huntingAlloc, int gatheringAlloc, int waterAlloc, int clothingAlloc, int storageAlloc, int toolsAlloc, int moraleAlloc) {
         this.huntingAlloc = huntingAlloc;
@@ -44,6 +50,10 @@ public class Allocations {
         this.moraleAlloc = DEFAULT_ALLOC;
     }
 
+    public int getTotalAllocation(){
+        return huntingAlloc + gatheringAlloc + waterAlloc + clothingAlloc + toolsAlloc + moraleAlloc;
+    }
+
     public int getHuntingAlloc() {
         return huntingAlloc;
     }
@@ -59,16 +69,22 @@ public class Allocations {
         return gatheringAlloc;
     }
 
-    public void setGatheringAlloc(int gatheringAlloc) {
-        this.gatheringAlloc = gatheringAlloc;
+    public void setGatheringAlloc(int change) {
+        gatheringAlloc += change;
+        if(gatheringAlloc < 0){
+            gatheringAlloc = 0;
+        }
     }
 
     public int getWaterAlloc() {
         return waterAlloc;
     }
 
-    public void setWaterAlloc(int waterAlloc) {
-        this.waterAlloc = waterAlloc;
+    public void setWaterAlloc(int change) {
+        waterAlloc += change;
+        if(waterAlloc < 0){
+            waterAlloc = 0;
+        }
     }
 
     public int getClothingAlloc() {

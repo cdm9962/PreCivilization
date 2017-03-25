@@ -158,7 +158,7 @@ public class GameInterface extends Application implements Observer {
 
         // Creates the hunting buttons and label
         Button huntingDecrease = new Button(Allocations.DECREMENT_BUTTON);
-        Label huntingLabel = new Label(Allocations.HUNTING_LABEL);
+        Label huntingLabel = new Label(Allocations.HUNTING_LABEL + ": " + model.getAllocations().getHuntingAlloc());
         Button huntingIncrease = new Button(Allocations.INCREMENT_BUTTON);
         grid.add(huntingDecrease, 0, 0);
         grid.add(huntingLabel, 1, 0);
@@ -167,33 +167,53 @@ public class GameInterface extends Application implements Observer {
         // Sets actions for the hunting allocation buttons
         huntingDecrease.setOnAction(event -> {
             model.getAllocations().setHuntingAlloc(Allocations.DECREMENT);
-            ((Label) grid.getChildren().get(1)).setText(Allocations.HUNTING_LABEL + " " + model.getAllocations().getHuntingAlloc());
+            ((Label) grid.getChildren().get(1)).setText(Allocations.HUNTING_LABEL + ": " + model.getAllocations().getHuntingAlloc());
         });
         huntingIncrease.setOnAction(event -> {
-            if(model.getAllocations().getHuntingAlloc() < model.getGroupSize()) {
+            if(model.getAllocations().getTotalAllocation() < model.getGroupSize()) {
                 model.getAllocations().setHuntingAlloc(Allocations.INCREMENT);
             }
-            ((Label) grid.getChildren().get(1)).setText(Allocations.HUNTING_LABEL + " " + model.getAllocations().getHuntingAlloc());
+            ((Label) grid.getChildren().get(1)).setText(Allocations.HUNTING_LABEL + ": " + model.getAllocations().getHuntingAlloc());
         });
 
-        // Creates the hunting buttons and label
+        // Creates the gathering buttons and label
         Button gatheringDecrease = new Button(Allocations.DECREMENT_BUTTON);
-        Label gatheringLabel = new Label(Allocations.GATHERING_LABEL);
+        Label gatheringLabel = new Label(Allocations.GATHERING_LABEL + ": " + model.getAllocations().getGatheringAlloc());
         Button gatheringIncrease = new Button(Allocations.INCREMENT_BUTTON);
-        grid.add(gatheringDecrease, 0, 0);
-        grid.add(gatheringLabel, 1, 0);
-        grid.add(gatheringIncrease, 2, 0);
+        grid.add(gatheringDecrease, 0, 1);
+        grid.add(gatheringLabel, 1, 1);
+        grid.add(gatheringIncrease, 2, 1);
 
-        // Sets actions for the hunting allocation buttons
+        // Sets actions for the gathering allocation buttons
         gatheringDecrease.setOnAction(event -> {
             model.getAllocations().setGatheringAlloc(Allocations.DECREMENT);
-            ((Label) grid.getChildren().get(1)).setText(Allocations.GATHERING_LABEL + " " + model.getAllocations().getGatheringAlloc());
+            ((Label) grid.getChildren().get(4)).setText(Allocations.GATHERING_LABEL + ": " + model.getAllocations().getGatheringAlloc());
         });
         gatheringIncrease.setOnAction(event -> {
-            if(model.getAllocations().getGatheringAlloc() < model.getGroupSize()) {
+            if(model.getAllocations().getTotalAllocation() < model.getGroupSize()) {
                 model.getAllocations().setGatheringAlloc(Allocations.INCREMENT);
             }
-            ((Label) grid.getChildren().get(1)).setText(Allocations.GATHERING_LABEL + " " + model.getAllocations().getGatheringAlloc());
+            ((Label) grid.getChildren().get(4)).setText(Allocations.GATHERING_LABEL + ": " + model.getAllocations().getGatheringAlloc());
+        });
+
+        // Creates the water buttons and label
+        Button waterDecrease = new Button(Allocations.DECREMENT_BUTTON);
+        Label waterLabel = new Label(Allocations.WATER_LABEL + ": " + model.getAllocations().getWaterAlloc());
+        Button waterIncrease = new Button(Allocations.INCREMENT_BUTTON);
+        grid.add(waterDecrease, 0, 2);
+        grid.add(waterLabel, 1, 2);
+        grid.add(waterIncrease, 2, 2);
+
+        // Sets actions for the water allocation buttons
+        waterDecrease.setOnAction(event -> {
+            model.getAllocations().setWaterAlloc(Allocations.DECREMENT);
+            ((Label) grid.getChildren().get(7)).setText(Allocations.WATER_LABEL + ": " + model.getAllocations().getWaterAlloc());
+        });
+        waterIncrease.setOnAction(event -> {
+            if(model.getAllocations().getTotalAllocation() < model.getGroupSize()) {
+                model.getAllocations().setWaterAlloc(Allocations.INCREMENT);
+            }
+            ((Label) grid.getChildren().get(7)).setText(Allocations.WATER_LABEL + ": " + model.getAllocations().getWaterAlloc());
         });
 
         return grid;
