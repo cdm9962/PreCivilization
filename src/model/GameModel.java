@@ -15,6 +15,7 @@ public class GameModel extends Observable {
     private int clothing;
     private int storage;
     private int tools;
+    private int morale;
     private int groupSize;
 
     // Constant/Default values for the game model
@@ -24,6 +25,7 @@ public class GameModel extends Observable {
     public static final int DEFAULT_CLOTHING = 100;
     public static final int DEFAULT_STORAGE = 100;
     public static final int DEFAULT_TOOLS = 100;
+    public static final int DEFAULT_MORALE = 100;
     public static final int DEFAULT_GROUP_SIZE = 50;
 
     /**
@@ -34,15 +36,17 @@ public class GameModel extends Observable {
      * @param tools the amount of tools currently stored
      * @param storage the amount of storage currently available
      * @param clothing the amount of clothing currently stored
+     * @param morale the overall morale of the group
      * @param groupSize the number of people in the group
      */
-    public GameModel(int health, int food, int water, int clothing, int storage, int tools, int groupSize) {
+    public GameModel(int health, int food, int water, int clothing, int storage, int tools, int morale, int groupSize) {
         this.health = health;
         this.food = food;
         this.water = water;
         this.clothing = clothing;
         this.storage = storage;
         this.tools = tools;
+        this.morale = morale;
         this.groupSize = groupSize;
     }
 
@@ -56,6 +60,7 @@ public class GameModel extends Observable {
         this.clothing = DEFAULT_CLOTHING;
         this.storage = DEFAULT_STORAGE;
         this.tools = DEFAULT_TOOLS;
+        this.morale = DEFAULT_MORALE;
         this.groupSize = DEFAULT_GROUP_SIZE;
     }
 
@@ -110,6 +115,10 @@ public class GameModel extends Observable {
     public void setTools(int tools) {
         this.tools = tools;
     }
+
+    public int getHappiness(){ return this.morale; }
+
+    public void setHappiness(int morale){ this.morale = morale; }
 
     public int getStorage() {
         return storage;

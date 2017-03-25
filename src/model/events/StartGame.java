@@ -15,7 +15,7 @@ public class StartGame extends Event {
     public String startEvent() {
         return  "Welcome to the world of PreCivilization!\n" +
                 "A computer simulation built to test the difficulties\n" +
-                "and randomness inherent with living in a Pre-agricultural society.\n";
+                "and randomness inherent with living in a pre-agricultural society.\n";
     }
 
     @Override

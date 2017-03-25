@@ -194,14 +194,16 @@ public class GameInterface extends Application implements Observer {
         final String WATER_TITLE = "Water";
         final String CLOTHING_TITLE = "Clothing";
         final String TOOLS_TITLE = "Tools";
+        final String MORALE_TITLE = "Morale";
         final String GROUP_SIZE_TITLE = "Group Size:";
 
         // The colors for the various bars
         final String HEALTH_COLOR = "-fx-background-color: red;";
         final String FOOD_COLOR = "-fx-background-color: green;";
         final String WATER_COLOR = "-fx-background-color: blue;";
-        final String CLOTHING_COLOR = "-fx-background-color: yellow;";
+        final String CLOTHING_COLOR = "-fx-background-color: orange;";
         final String TOOLS_COLOR = "-fx-background-color: purple;";
+        final String MORALE_COLOR = "-fx-background-color: yellow;";
 
         // Column and row values for the grid pane
         int row = 0;
@@ -269,6 +271,18 @@ public class GameInterface extends Application implements Observer {
         toolsBox.setMinSize(model.getTools(), DEFAULT_HIGHT);
         toolsBox.setStyle(TOOLS_COLOR);
         grid.add(toolsBox, col, row);
+        col--;
+        row++;
+
+        // Creates the morale bar and label
+        String moraleValue = Integer.toString(model.getHappiness());
+        Label moraleLabel = new Label(MORALE_TITLE + ":\t" + moraleValue);
+        grid.add(moraleLabel, col, row);
+        col++;
+        HBox moraleBox = new HBox();
+        moraleBox.setMinSize(model.getHappiness(), DEFAULT_HIGHT);
+        moraleBox.setStyle(MORALE_COLOR);
+        grid.add(moraleBox, col, row);
         col--;
         row++;
 
