@@ -2,6 +2,7 @@ package gui;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -112,7 +113,7 @@ public class GameInterface extends Application implements Observer {
         border.setTop(makeTopLabel());
         border.setLeft(makeLeftLabel());
         border.setRight(makeBars());
-        border.setBottom(makeUserBox());
+        border.setBottom(makeUserButtons());
         playScreen = border;
         return border;
     }
@@ -184,7 +185,8 @@ public class GameInterface extends Application implements Observer {
         row++;
 
         // Creates the food bar and label
-        Label foodLabel = new Label(FOOD_TITLE);
+        String foodValue = Integer.toString(model.getFood());
+        Label foodLabel = new Label(FOOD_TITLE + ":\t" + foodValue);
         grid.add(foodLabel, col, row);
         col++;
         HBox foodBox = new HBox();
@@ -195,7 +197,8 @@ public class GameInterface extends Application implements Observer {
         row++;
 
         // Creates the water bar and label
-        Label waterLabel = new Label(WATER_TITLE);
+        String waterValue = Integer.toString(model.getWater());
+        Label waterLabel = new Label(WATER_TITLE + ":\t" + waterValue);
         grid.add(waterLabel, col, row);
         col++;
         HBox waterBox = new HBox();
@@ -206,7 +209,8 @@ public class GameInterface extends Application implements Observer {
         row++;
 
         // Creates the clothing bar and label
-        Label clothingLabel = new Label(CLOTHING_TITLE);
+        String clothingValue = Integer.toString(model.getClothing());
+        Label clothingLabel = new Label(CLOTHING_TITLE + ":\t" + clothingValue);
         grid.add(clothingLabel, col, row);
         col++;
         HBox clothingBox = new HBox();
@@ -217,7 +221,8 @@ public class GameInterface extends Application implements Observer {
         row++;
 
         // Creates the tools bar and label
-        Label toolsLabel = new Label(TOOLS_TITLE);
+        String toolsValue = Integer.toString(model.getTools());
+        Label toolsLabel = new Label(TOOLS_TITLE + ":\t" + toolsValue);
         grid.add(toolsLabel, col, row);
         col++;
         HBox toolsBox = new HBox();
@@ -236,6 +241,18 @@ public class GameInterface extends Application implements Observer {
         resourceBars = grid;
         return grid;
     }
+
+    /**
+     * Method to create the user input buttons on the bottom of the pane.
+     * @return GridPane representing the user input section
+     */
+    private GridPane makeUserButtons(){
+        GridPane buttonGrid = new GridPane();
+        Button startButton = new Button("Start Game");
+        buttonGrid.add(startButton, 0, 0);
+        return buttonGrid;
+    }
+
 
     /**
      * Method to create the user input box on the bottom of the pane.
