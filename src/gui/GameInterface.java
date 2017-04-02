@@ -5,16 +5,14 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import model.Allocations;
-import model.GameLoop;
+import model.events.GameLoop;
 import model.events.Event;
 import model.GameModel;
 import model.events.StartGame;
@@ -104,6 +102,10 @@ public class GameInterface extends Application implements Observer {
                 userCommand = GameLoop.EVENT_NAME;
                 update(model, this);
             });
+
+        // Starts the main game loop
+        } else if(userCommand.equals(GameLoop.EVENT_NAME)){
+
         }
 
 

@@ -12,6 +12,14 @@ public class StartRound extends Event {
     public static final String EVENT_NAME = "Start Round";
     public static final String NEXT_BUTTON = "Next";
 
+    /**
+     * StartRound constructor
+     * @param model GameModel for the event to modify
+     */
+    public StartRound(GameModel model){
+        super(model);
+    }
+
     @Override
     public String startEvent() {
         return  "Now it is time to allocate how many of your people you want\n" +

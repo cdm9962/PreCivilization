@@ -12,6 +12,14 @@ public class StartGame extends Event {
     public static final String EVENT_NAME = "Start Game";
     public static final String NEXT_BUTTON = "Next";
 
+    /**
+     * StartGame constructor
+     * @param model GameModel for the event to modify
+     */
+    public StartGame(GameModel model){
+        super(model);
+    }
+
     @Override
     public String startEvent() {
         return  "Welcome to the world of PreCivilization!\n" +

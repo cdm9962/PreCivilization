@@ -12,6 +12,14 @@ public class Tornado extends Event {
     public static final String EVENT_NAME = "Tornado";
     public static final String NEXT_BUTTON = "Next";
 
+    /**
+     * Tornado constructor
+     * @param model GameModel for the event to modify
+     */
+    public Tornado(GameModel model){
+        super(model);
+    }
+
     @Override
     public String startEvent() {
         return  "There is a tornado coming,\n" +
