@@ -46,4 +46,31 @@ public class Location {
         }
     }
 
+    public double getHuntingRate() {
+        return huntingRate;
+    }
+
+    public double getGatheringRate() {
+        return gatheringRate;
+    }
+
+    public double getWaterRate() {
+        return waterRate;
+    }
+
+    public double getClothingRate() {
+        return clothingRate;
+    }
+
+    public double getStorageRate() {
+        return storageRate;
+    }
+
+    public double getToolsRate() {
+        return toolsRate;
+    }
+
+    public double getMoraleRate() {
+        return moraleRate;
+    }
 }

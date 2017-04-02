@@ -18,6 +18,7 @@ public class GameModel extends Observable {
     private int morale;
     private int groupSize;
     private Allocations allocations;
+    private Location location;
 
     // Constant/Default values for the game model
     public static final int DEFAULT_HEALTH = 100;

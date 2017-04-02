@@ -14,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import model.Allocations;
+import model.GameLoop;
 import model.events.Event;
 import model.GameModel;
 import model.events.StartGame;
@@ -96,6 +97,13 @@ public class GameInterface extends Application implements Observer {
             updatePlayScreen(currentEvent.startEvent());
             GridPane allocationGrid = makeAllocationGrid();
             playScreen.setLeft(allocationGrid);
+
+            Button nextButton3 = new Button(GameLoop.NEXT_BUTTON);
+            userButtons.getChildren().set(0, nextButton3);
+            nextButton3.setOnAction(event3 -> {
+                userCommand = GameLoop.EVENT_NAME;
+                update(model, this);
+            });
         }
 
 
