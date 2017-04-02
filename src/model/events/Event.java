@@ -8,16 +8,6 @@ import model.GameModel;
  * @author Connor D. Milligan
  */
 public abstract class Event {
-    private GameModel model;
-
-    /**
-     * Event constructor
-     * @param model GameModel for the event to modify
-     */
-    public Event(GameModel model){
-        this.model = model;
-    }
-
     /**
      * Method to start the event and return the textual representation of the event start.
      * @return String representing what is happening at the start of the event

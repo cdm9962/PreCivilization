@@ -74,11 +74,12 @@ public class GameInterface extends Application implements Observer {
         // Launches the first game section
         if(userCommand.equals(StartGame.EVENT_NAME)) {
             topLabel.setText(StartGame.EVENT_NAME);
-            currentEvent = new StartGame();
+            currentEvent = new StartGame(model);
             updatePlayScreen(currentEvent.startEvent());
-            Button nextButton1 = new Button(StartGame.NEXT_BUTTON);
-            userButtons.getChildren().set(0, nextButton1);
-            nextButton1.setOnAction(event1 -> {
+
+            Button nextButton = new Button(StartGame.NEXT_BUTTON);
+            userButtons.getChildren().set(0, nextButton);
+            nextButton.setOnAction(event1 -> {
                 updatePlayScreen(currentEvent.endEvent(model, ""));
                 Button nextButton2 = new Button(StartGame.NEXT_BUTTON);
                 userButtons.getChildren().set(0, nextButton2);
@@ -91,21 +92,37 @@ public class GameInterface extends Application implements Observer {
         // Asks for users resource allocation and starts a game round
         } else if(userCommand.equals(StartRound.EVENT_NAME)){
             topLabel.setText(StartRound.EVENT_NAME);
-            currentEvent = new StartRound();
+            currentEvent = new StartRound(model);
             updatePlayScreen(currentEvent.startEvent());
             GridPane allocationGrid = makeAllocationGrid();
             playScreen.setLeft(allocationGrid);
 
-            Button nextButton3 = new Button(GameLoop.NEXT_BUTTON);
-            userButtons.getChildren().set(0, nextButton3);
-            nextButton3.setOnAction(event3 -> {
-                userCommand = GameLoop.EVENT_NAME;
-                update(model, this);
+            Button nextButton = new Button(StartRound.NEXT_BUTTON);
+            userButtons.getChildren().set(0, nextButton);
+            nextButton.setOnAction(event3 -> {
+                if(model.getAllocations().getTotalAllocation() == model.getGroupSize()) {
+                    userCommand = GameLoop.EVENT_NAME;
+                    update(model, this);
+                }
             });
 
         // Starts the main game loop
         } else if(userCommand.equals(GameLoop.EVENT_NAME)){
+            topLabel.setText(GameLoop.EVENT_NAME);
+            currentEvent = new GameLoop(model);
+            updatePlayScreen(currentEvent.startEvent());
 
+            Button nextButton = new Button(GameLoop.NEXT_BUTTON);
+            userButtons.getChildren().set(0, nextButton);
+            nextButton.setOnAction(event -> {
+                updatePlayScreen(currentEvent.endEvent(model, ""));
+                Button nextButton2 = new Button(GameLoop.NEXT_BUTTON);
+                userButtons.getChildren().set(0, nextButton2);
+                nextButton2.setOnAction(event2 -> {
+                    userCommand = StartRound.EVENT_NAME;
+                    update(model, this);
+                });
+            });
         }
 
 
@@ -124,7 +141,7 @@ public class GameInterface extends Application implements Observer {
         }
 
         if(userCommand.equals("Tornado")){
-            Event event = new Tornado();
+            Event event = new Tornado(model);
             currentEvent = event;
             playScreen.setLeft(new Pane(new Label(event.startEvent())));
         }

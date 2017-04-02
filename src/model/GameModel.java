@@ -87,6 +87,21 @@ public class GameModel extends Observable {
         return this.getHealth() == 0;
     }
 
+    /**
+     * Method to modify the food value based on the user allocations and the game location
+     */
+    public void modifyFood() {
+        food = (int) (food + (this.allocations.getHuntingAlloc() * this.location.getHuntingRate()) +
+                (this.allocations.getGatheringAlloc() * this.location.getGatheringRate()));
+//        if(food > DEFAULT_FOOD) {
+//            food = DEFAULT_FOOD;
+//        }
+    }
+
+    public void setLocation(){
+        this.location = new Location(Location.Locations.FOREST);
+    }
+
     ///
     /// Getter and Setter methods for the private state.
     ///

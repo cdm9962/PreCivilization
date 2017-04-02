@@ -8,6 +8,9 @@ import model.GameModel;
  * @author Connor D. Milligan
  */
 public class StartGame extends Event {
+    // The game model for modifying based on the event results
+    private GameModel model;
+
     // Constant string values for the StartGame event
     public static final String EVENT_NAME = "Start Game";
     public static final String NEXT_BUTTON = "Next";
@@ -17,7 +20,7 @@ public class StartGame extends Event {
      * @param model GameModel for the event to modify
      */
     public StartGame(GameModel model){
-        super(model);
+        this.model = model;
     }
 
     @Override
