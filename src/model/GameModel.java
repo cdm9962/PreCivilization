@@ -100,11 +100,23 @@ public class GameModel extends Observable {
     }
 
     /**
+     * Method to print all model values to the game UI.
+     * @return String representing the model values
+     */
+    public String printValues(){
+        return "Food: " + food + "\n" +
+                "Water: " + water + "\n" +
+                "Clothing: " + clothing + "\n" +
+                "Tools: " + tools + "\n" +
+                "Morale: " + morale + "\n";
+    }
+
+    /**
      * Method to modify the food value based on the user allocations and the game location.
      */
     public void modifyFood() {
         food = (int) (food + (this.allocations.getHuntingAlloc() * this.location.getHuntingRate()) +
-                (this.allocations.getGatheringAlloc() * this.location.getGatheringRate()));
+                (this.allocations.getGatheringAlloc() * this.location.getGatheringRate()) - (groupSize * 0.5));
         if(food > DEFAULT_FOOD) {
             food = DEFAULT_FOOD;
         }
@@ -115,7 +127,7 @@ public class GameModel extends Observable {
      */
     public void modifyWater() {
         water = (int) (water + (this.allocations.getWaterAlloc() * this.location.getWaterRate()) +
-                (this.allocations.getWaterAlloc() * this.location.getWaterRate()));
+                (this.allocations.getWaterAlloc() * this.location.getWaterRate()) - (groupSize * 0.5));
         if(water > DEFAULT_WATER) {
             water = DEFAULT_WATER;
         }
@@ -126,7 +138,7 @@ public class GameModel extends Observable {
      */
     public void modifyClothing() {
         clothing = (int) (clothing + (this.allocations.getClothingAlloc() * this.location.getClothingRate()) +
-                (this.allocations.getClothingAlloc() * this.location.getClothingRate()));
+                (this.allocations.getClothingAlloc() * this.location.getClothingRate()) - (groupSize * 0.5));
         if(clothing > DEFAULT_CLOTHING) {
             clothing = DEFAULT_CLOTHING;
         }
@@ -137,7 +149,7 @@ public class GameModel extends Observable {
      */
     public void modifyTools() {
         tools = (int) (tools + (this.allocations.getToolsAlloc() * this.location.getToolsRate()) +
-                (this.allocations.getToolsAlloc() * this.location.getToolsRate()));
+                (this.allocations.getToolsAlloc() * this.location.getToolsRate()) - (groupSize * 0.5));
         if(tools > DEFAULT_TOOLS) {
             tools = DEFAULT_TOOLS;
         }
@@ -148,7 +160,7 @@ public class GameModel extends Observable {
      */
     public void modifyMorale() {
         morale = (int) (morale + (this.allocations.getMoraleAlloc() * this.location.getMoraleRate()) +
-                (this.allocations.getMoraleAlloc() * this.location.getMoraleRate()));
+                (this.allocations.getMoraleAlloc() * this.location.getMoraleRate()) - (groupSize * 0.5));
         if(morale > DEFAULT_MORALE) {
             morale = DEFAULT_MORALE;
         }
@@ -236,13 +248,5 @@ public class GameModel extends Observable {
 
     public void setAllocations(Allocations allocations) {
         this.allocations = allocations;
-    }
-
-    public String printValues(){
-        return food + "\n" +
-                water + "\n" +
-                clothing + "\n" +
-                tools + "\n" +
-                morale + "\n";
     }
 }
