@@ -27,13 +27,13 @@ public class GameLoop extends Event {
 
     @Override
     public String startEvent() {
-        model.modifyFood();
+        model.modifyValues();
         return "Running simulation...";
     }
 
     @Override
     public String endEvent(GameModel model, String choice) {
         return "Simulation results:\n" +
-                model.getFood();
+                model.printValues();
     }
 }

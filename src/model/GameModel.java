@@ -87,15 +87,71 @@ public class GameModel extends Observable {
         return this.getHealth() == 0;
     }
 
+
     /**
-     * Method to modify the food value based on the user allocations and the game location
+     * Method to modify the model values base don the user allocations and the game location.
+     */
+    public void modifyValues() {
+        this.modifyFood();
+        this.modifyWater();
+        this.modifyClothing();
+        this.modifyTools();
+        this.modifyMorale();
+    }
+
+    /**
+     * Method to modify the food value based on the user allocations and the game location.
      */
     public void modifyFood() {
         food = (int) (food + (this.allocations.getHuntingAlloc() * this.location.getHuntingRate()) +
                 (this.allocations.getGatheringAlloc() * this.location.getGatheringRate()));
-//        if(food > DEFAULT_FOOD) {
-//            food = DEFAULT_FOOD;
-//        }
+        if(food > DEFAULT_FOOD) {
+            food = DEFAULT_FOOD;
+        }
+    }
+
+    /**
+     * Method to modify the water value based on the user allocations and the game location.
+     */
+    public void modifyWater() {
+        water = (int) (water + (this.allocations.getWaterAlloc() * this.location.getWaterRate()) +
+                (this.allocations.getWaterAlloc() * this.location.getWaterRate()));
+        if(water > DEFAULT_WATER) {
+            water = DEFAULT_WATER;
+        }
+    }
+
+    /**
+     * Method to modify the clothing value based on the user allocations and the game location.
+     */
+    public void modifyClothing() {
+        clothing = (int) (clothing + (this.allocations.getClothingAlloc() * this.location.getClothingRate()) +
+                (this.allocations.getClothingAlloc() * this.location.getClothingRate()));
+        if(clothing > DEFAULT_CLOTHING) {
+            clothing = DEFAULT_CLOTHING;
+        }
+    }
+
+    /**
+     * Method to modify the tools value based on the user allocations and the game location.
+     */
+    public void modifyTools() {
+        tools = (int) (tools + (this.allocations.getToolsAlloc() * this.location.getToolsRate()) +
+                (this.allocations.getToolsAlloc() * this.location.getToolsRate()));
+        if(tools > DEFAULT_TOOLS) {
+            tools = DEFAULT_TOOLS;
+        }
+    }
+
+    /**
+     * Method to modify the morale value based on the user allocations and the game location.
+     */
+    public void modifyMorale() {
+        morale = (int) (morale + (this.allocations.getMoraleAlloc() * this.location.getMoraleRate()) +
+                (this.allocations.getMoraleAlloc() * this.location.getMoraleRate()));
+        if(morale > DEFAULT_MORALE) {
+            morale = DEFAULT_MORALE;
+        }
     }
 
     public void setLocation(){
@@ -180,5 +236,13 @@ public class GameModel extends Observable {
 
     public void setAllocations(Allocations allocations) {
         this.allocations = allocations;
+    }
+
+    public String printValues(){
+        return food + "\n" +
+                water + "\n" +
+                clothing + "\n" +
+                tools + "\n" +
+                morale + "\n";
     }
 }
