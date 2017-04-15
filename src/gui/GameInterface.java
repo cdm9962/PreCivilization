@@ -34,7 +34,7 @@ public class GameInterface extends Application implements Observer {
     // The various UI elements that need to be updated
     private Label topLabel;
     private BorderPane playScreen;
-    private GridPane resourceBars;
+    private ResourceBars resourceBars;
     private GridPane userButtons;
 
     private Event currentEvent;
@@ -69,6 +69,7 @@ public class GameInterface extends Application implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        resourceBars.updateResourceBars();
         // Launches the first game section
         if(currentEvent instanceof StartGame) {
             topLabel.setText(StartGame.EVENT_NAME);
@@ -138,6 +139,7 @@ public class GameInterface extends Application implements Observer {
                 updatePlayScreen(currentEvent.endEvent(model, Tornado.RUN_BUTTON));
                 Button nextButton2 = new Button(Tornado.NEXT_BUTTON);
                 userButtons.getChildren().set(0, nextButton2);
+                userButtons.getChildren().remove(1);
                 nextButton2.setOnAction(event2 -> {
                     currentEvent = new StartRound(model);
                     update(model, this);
@@ -160,42 +162,6 @@ public class GameInterface extends Application implements Observer {
 
             });
         }
-
-
-
-
-//
-//        // Test code for resource bar manipulation
-//        if(userCommand.equals("Attack")){
-//            System.out.println(model.getHealth());
-//            model.takeDamage(10);
-//            ((HBox) resourceBars.getChildren().get(1)).setMaxWidth(model.getHealth());
-//            ((Label) resourceBars.getChildren().get(0)).setText("Health:\t" + model.getHealth());
-//            if(model.isDead()) {
-//                playScreen.setLeft(new Pane(new Label("Thanks for play, GG no Re")));
-//            }
-//        }
-
-//        if(userCommand.equals("Tornado")){
-//            Event event = new Tornado(model);
-//            currentEvent = event;
-//            playScreen.setLeft(new Pane(new Label(event.startEvent())));
-//        }
-//
-//        if(userCommand.equals("run")){
-//            playScreen.setLeft(new Pane(new Label(currentEvent.endEvent(model, userCommand))));
-//        }
-//
-//        if(userCommand.equals("hide")){
-//            model.setFood((int) (model.getFood() * 0.95));
-//            ((HBox) resourceBars.getChildren().get(3)).setMaxWidth(model.getFood());
-//            ((Label) resourceBars.getChildren().get(2)).setText("Food:\t" + model.getFood());
-//
-//            model.setGroupSize(model.getGroupSize() - 2);
-//            ((Label) resourceBars.getChildren().get(10)).setText("Group Size: " + model.getGroupSize());
-//
-//            playScreen.setLeft(new Pane(new Label(currentEvent.endEvent(model, userCommand))));
-//        }
     }
 
     /**
@@ -351,8 +317,8 @@ public class GameInterface extends Application implements Observer {
         border.setPadding(new Insets(5.0));
         border.setTop(makeTopLabel());
         border.setLeft(makeLeftLabel());
-        resourceBars = new ResourceBars(model).makeBars();
-        border.setRight(resourceBars);
+        resourceBars = new ResourceBars(model);
+        border.setRight(resourceBars.makeBars());
         border.setBottom(makeUserButtons());
         playScreen = border;
         return border;

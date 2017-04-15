@@ -12,11 +12,12 @@ import model.GameModel;
  */
 public class ResourceBars {
     private GameModel model;
+    private GridPane resourceBars;
 
     // Default values for the bar sizes
     final int DEFAULT_WIDTH = 100;
     final int DEFAULT_HIGHT = 20;
-    
+
     // The colors for the various bars
     public static final String HEALTH_COLOR = "-fx-background-color: red;";
     public static final String FOOD_COLOR = "-fx-background-color: green;";
@@ -24,7 +25,7 @@ public class ResourceBars {
     public static final String CLOTHING_COLOR = "-fx-background-color: orange;";
     public static final String TOOLS_COLOR = "-fx-background-color: purple;";
     public static final String MORALE_COLOR = "-fx-background-color: yellow;";
-    
+
     // String values for the bar descriptions
     public static final String HEALTH_TITLE = "Health";
     public static final String FOOD_TITLE = "Food";
@@ -32,10 +33,20 @@ public class ResourceBars {
     public static final String CLOTHING_TITLE = "Clothing";
     public static final String TOOLS_TITLE = "Tools";
     public static final String MORALE_TITLE = "Morale";
-    public static final String GROUP_SIZE_TITLE = "Group Size:";
+    public static final String GROUP_SIZE_TITLE = "Group Size";
+
+    // Index values for each bar in the GridPane
+    public static final int HEALTH_INDEX = 1;
+    public static final int FOOD_INDEX = 3;
+    public static final int WATER_INDEX = 5;
+    public static final int CLOTHING_INDEX = 7;
+    public static final int TOOLS_INDEX = 9;
+    public static final int MORALE_INDEX = 11;
+    public static final int GROUP_SIZE_INDEX = 12;
 
     /**
      * ResourceBars constructor.
+     *
      * @param model GameModel for the simulation
      */
     public ResourceBars(GameModel model) {
@@ -44,6 +55,7 @@ public class ResourceBars {
 
     /**
      * Method to create the various resource bars. Scales the bars based on their value in the model.
+     *
      * @return GridPane representing the array of resource bars
      */
     public GridPane makeBars() {
@@ -129,11 +141,40 @@ public class ResourceBars {
         row++;
 
         // Creates the group size label
-        Label groupSizeLabel = new Label(GROUP_SIZE_TITLE + " " + model.getGroupSize());
+        Label groupSizeLabel = new Label(GROUP_SIZE_TITLE + ": " + model.getGroupSize());
         grid.add(groupSizeLabel, col, row);
         col--;
         row++;
 
+        // Sets and returns the resource bars
+        resourceBars = grid;
         return grid;
+    }
+
+    /**
+     * Method to update the resource bars on the game UI.
+     */
+    public void updateResourceBars() {
+        // Update health resource bar
+        ((HBox) resourceBars.getChildren().get(HEALTH_INDEX)).setMaxWidth(model.getHealth());
+        ((Label) resourceBars.getChildren().get(HEALTH_INDEX - 1)).setText(HEALTH_TITLE + ":\t" + model.getHealth());
+        // Update food resource bar
+        ((HBox) resourceBars.getChildren().get(FOOD_INDEX)).setMaxWidth(model.getFood());
+        ((Label) resourceBars.getChildren().get(FOOD_INDEX - 1)).setText(FOOD_TITLE + ":\t" + model.getFood());
+        // Update water resource bar
+        ((HBox) resourceBars.getChildren().get(WATER_INDEX)).setMaxWidth(model.getWater());
+        ((Label) resourceBars.getChildren().get(WATER_INDEX - 1)).setText(WATER_TITLE + ":\t" + model.getWater());
+        // Update clothing resource bar
+        ((HBox) resourceBars.getChildren().get(CLOTHING_INDEX)).setMaxWidth(model.getClothing());
+        ((Label) resourceBars.getChildren().get(CLOTHING_INDEX - 1)).setText(CLOTHING_TITLE + ":\t" + model.getClothing());
+        // Update tools resource bar
+        ((HBox) resourceBars.getChildren().get(TOOLS_INDEX)).setMaxWidth(model.getTools());
+        ((Label) resourceBars.getChildren().get(TOOLS_INDEX - 1)).setText(TOOLS_TITLE + ":\t" + model.getTools());
+        // Update morale resource bar
+        ((HBox) resourceBars.getChildren().get(MORALE_INDEX)).setMaxWidth(model.getMorale());
+        ((Label) resourceBars.getChildren().get(MORALE_INDEX - 1)).setText(MORALE_TITLE + ":\t" + model.getMorale());
+        // Update group size display
+        ((Label) resourceBars.getChildren().get(GROUP_SIZE_INDEX)).setText(GROUP_SIZE_TITLE+ ": " + model.getGroupSize());
+
     }
 }
