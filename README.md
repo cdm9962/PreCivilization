@@ -16,6 +16,10 @@ before the rise of agriculture.  Built using Java and the JavaFx framework.
 - Update 1: Completed basic GUI initialization.
 ![alt tag](https://preview.ibb.co/d3J0Jv/Update1.png)
 
+- Update 2: Running the Application.
+
+To run the Application click download Zip and then run the Jar file.
+
 ## Trello:
 
 - Development process can be tracked through Trello.

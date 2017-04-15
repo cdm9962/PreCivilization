@@ -37,7 +37,7 @@ public class Tornado extends Event {
         if(choice.equals("Run")){
             return "You out ran the tornado!";
         } else if(choice.equals("Hide")){
-            model.setGroupSize(model.getGroupSize() - 2);
+            model.alterGroupSize(2);
             return  "The tornado destroyed the food storage!\n" +
                     "Two people died in the aftermath.\n";
         } else {

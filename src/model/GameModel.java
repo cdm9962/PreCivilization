@@ -188,6 +188,16 @@ public class GameModel extends Observable {
         }
     }
 
+    public void modifyGroupSize() {
+
+    }
+
+    public void alterGroupSize(int amount) {
+        groupSize -= amount;
+        if(groupSize < 0){
+            groupSize = 0;
+        }
+    }
     public void setLocation(){
         this.location = new Location(Location.Locations.FOREST);
     }
