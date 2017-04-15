@@ -27,6 +27,7 @@ public class GameLoop extends Event {
 
     @Override
     public String startEvent() {
+        Event event = model.createEvent();
         model.modifyValues();
         return "Running simulation...";
     }

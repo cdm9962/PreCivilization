@@ -14,6 +14,8 @@ public class Tornado extends Event {
     // Constant string values for the Tornado event
     public static final String EVENT_NAME = "Tornado";
     public static final String NEXT_BUTTON = "Next";
+    public static final String RUN_BUTTON = "Run";
+    public static final String HIDE_BUTTON = "Hide";
 
     /**
      * Tornado constructor
@@ -32,10 +34,11 @@ public class Tornado extends Event {
 
     @Override
     public String endEvent(GameModel model, String choice) {
-        if(choice.equals("run")){
+        if(choice.equals("Run")){
             return "You out ran the tornado!";
-        } else if(choice.equals("hide")){
-            return  "The tornado destoryed the food storage!\n" +
+        } else if(choice.equals("Hide")){
+            model.setGroupSize(model.getGroupSize() - 2);
+            return  "The tornado destroyed the food storage!\n" +
                     "Two people died in the aftermath.\n";
         } else {
             return null;

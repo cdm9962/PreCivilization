@@ -37,8 +37,6 @@ public class GameInterface extends Application implements Observer {
     private GridPane resourceBars;
     private GridPane userButtons;
 
-    // The stored user data
-    private String userCommand;
     private Event currentEvent;
 
     // Constant/Default values for the game interface
@@ -72,9 +70,8 @@ public class GameInterface extends Application implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         // Launches the first game section
-        if(userCommand.equals(StartGame.EVENT_NAME)) {
+        if(currentEvent instanceof StartGame) {
             topLabel.setText(StartGame.EVENT_NAME);
-            currentEvent = new StartGame(model);
             updatePlayScreen(currentEvent.startEvent());
 
             Button nextButton = new Button(StartGame.NEXT_BUTTON);
@@ -84,15 +81,14 @@ public class GameInterface extends Application implements Observer {
                 Button nextButton2 = new Button(StartGame.NEXT_BUTTON);
                 userButtons.getChildren().set(0, nextButton2);
                 nextButton2.setOnAction(event2 -> {
-                    userCommand = StartRound.EVENT_NAME;
+                    currentEvent = new StartRound(model);
                     update(model, this);
                 });
             });
 
         // Asks for users resource allocation and starts a game round
-        } else if(userCommand.equals(StartRound.EVENT_NAME)){
+        } else if(currentEvent instanceof StartRound){
             topLabel.setText(StartRound.EVENT_NAME);
-            currentEvent = new StartRound(model);
             updatePlayScreen(currentEvent.startEvent());
             GridPane allocationGrid = makeAllocationGrid();
             playScreen.setLeft(allocationGrid);
@@ -101,15 +97,14 @@ public class GameInterface extends Application implements Observer {
             userButtons.getChildren().set(0, nextButton);
             nextButton.setOnAction(event3 -> {
                 if(model.getAllocations().getTotalAllocation() == model.getGroupSize()) {
-                    userCommand = GameLoop.EVENT_NAME;
+                    currentEvent = new GameLoop(model);
                     update(model, this);
                 }
             });
 
         // Starts the main game loop
-        } else if(userCommand.equals(GameLoop.EVENT_NAME)){
+        } else if(currentEvent instanceof GameLoop){
             topLabel.setText(GameLoop.EVENT_NAME);
-            currentEvent = new GameLoop(model);
             updatePlayScreen(currentEvent.startEvent());
 
             Button nextButton = new Button(GameLoop.NEXT_BUTTON);
@@ -118,48 +113,89 @@ public class GameInterface extends Application implements Observer {
                 updatePlayScreen(currentEvent.endEvent(model, ""));
                 Button nextButton2 = new Button(GameLoop.NEXT_BUTTON);
                 userButtons.getChildren().set(0, nextButton2);
+                Event randomEvent = model.createEvent();
+                if(randomEvent != null) {
+                    currentEvent = randomEvent;
+                }
                 nextButton2.setOnAction(event2 -> {
-                    userCommand = StartRound.EVENT_NAME;
+                    if(!(currentEvent instanceof GameLoop)) {
+                        update(model, this);
+                    } else {
+                        currentEvent = new StartRound(model);
+                        update(model, this);
+                    }
+                });
+            });
+
+        // Starts the Tornado event
+        } else if(currentEvent instanceof Tornado) {
+            topLabel.setText(Tornado.EVENT_NAME);
+            updatePlayScreen(currentEvent.startEvent());
+
+            Button runButton = new Button(Tornado.RUN_BUTTON);
+            userButtons.getChildren().set(0, runButton);
+            runButton.setOnAction(event -> {
+                updatePlayScreen(currentEvent.endEvent(model, Tornado.RUN_BUTTON));
+                Button nextButton2 = new Button(Tornado.NEXT_BUTTON);
+                userButtons.getChildren().set(0, nextButton2);
+                nextButton2.setOnAction(event2 -> {
+                    currentEvent = new StartRound(model);
                     update(model, this);
                 });
+
+
+            });
+
+            Button hideButton = new Button(Tornado.HIDE_BUTTON);
+            userButtons.add(hideButton, 1, 0);
+            hideButton.setOnAction(event -> {
+                updatePlayScreen(currentEvent.endEvent(model, Tornado.HIDE_BUTTON));
+                Button nextButton2 = new Button(Tornado.NEXT_BUTTON);
+                userButtons.getChildren().set(0, nextButton2);
+                userButtons.getChildren().remove(1);
+                nextButton2.setOnAction(event2 -> {
+                    currentEvent = new StartRound(model);
+                    update(model, this);
+                });
+
             });
         }
 
 
 
 
+//
+//        // Test code for resource bar manipulation
+//        if(userCommand.equals("Attack")){
+//            System.out.println(model.getHealth());
+//            model.takeDamage(10);
+//            ((HBox) resourceBars.getChildren().get(1)).setMaxWidth(model.getHealth());
+//            ((Label) resourceBars.getChildren().get(0)).setText("Health:\t" + model.getHealth());
+//            if(model.isDead()) {
+//                playScreen.setLeft(new Pane(new Label("Thanks for play, GG no Re")));
+//            }
+//        }
 
-        // Test code for resource bar manipulation
-        if(userCommand.equals("Attack")){
-            System.out.println(model.getHealth());
-            model.takeDamage(10);
-            ((HBox) resourceBars.getChildren().get(1)).setMaxWidth(model.getHealth());
-            ((Label) resourceBars.getChildren().get(0)).setText("Health:\t" + model.getHealth());
-            if(model.isDead()) {
-                playScreen.setLeft(new Pane(new Label("Thanks for play, GG no Re")));
-            }
-        }
-
-        if(userCommand.equals("Tornado")){
-            Event event = new Tornado(model);
-            currentEvent = event;
-            playScreen.setLeft(new Pane(new Label(event.startEvent())));
-        }
-
-        if(userCommand.equals("run")){
-            playScreen.setLeft(new Pane(new Label(currentEvent.endEvent(model, userCommand))));
-        }
-
-        if(userCommand.equals("hide")){
-            model.setFood((int) (model.getFood() * 0.95));
-            ((HBox) resourceBars.getChildren().get(3)).setMaxWidth(model.getFood());
-            ((Label) resourceBars.getChildren().get(2)).setText("Food:\t" + model.getFood());
-
-            model.setGroupSize(model.getGroupSize() - 2);
-            ((Label) resourceBars.getChildren().get(10)).setText("Group Size: " + model.getGroupSize());
-
-            playScreen.setLeft(new Pane(new Label(currentEvent.endEvent(model, userCommand))));
-        }
+//        if(userCommand.equals("Tornado")){
+//            Event event = new Tornado(model);
+//            currentEvent = event;
+//            playScreen.setLeft(new Pane(new Label(event.startEvent())));
+//        }
+//
+//        if(userCommand.equals("run")){
+//            playScreen.setLeft(new Pane(new Label(currentEvent.endEvent(model, userCommand))));
+//        }
+//
+//        if(userCommand.equals("hide")){
+//            model.setFood((int) (model.getFood() * 0.95));
+//            ((HBox) resourceBars.getChildren().get(3)).setMaxWidth(model.getFood());
+//            ((Label) resourceBars.getChildren().get(2)).setText("Food:\t" + model.getFood());
+//
+//            model.setGroupSize(model.getGroupSize() - 2);
+//            ((Label) resourceBars.getChildren().get(10)).setText("Group Size: " + model.getGroupSize());
+//
+//            playScreen.setLeft(new Pane(new Label(currentEvent.endEvent(model, userCommand))));
+//        }
     }
 
     /**
@@ -339,7 +375,7 @@ public class GameInterface extends Application implements Observer {
      * @return Pane representing the left label
      */
     private Pane makeLeftLabel() {
-        Image image = new Image("file:splash.png");
+        Image image = new Image(getClass().getResource("/resources/splash.png").toExternalForm());
         ImageView logo = new ImageView(image);
         Pane pane = new Pane(logo);
         return pane;
@@ -472,7 +508,7 @@ public class GameInterface extends Application implements Observer {
         buttonGrid.add(startButton, 0, 0);
         userButtons = buttonGrid;
         startButton.setOnAction(event ->{
-            userCommand = "Start Game";
+            currentEvent = new StartGame(model);
             update(model, this);
         });
         return buttonGrid;

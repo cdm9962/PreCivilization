@@ -1,6 +1,11 @@
 package model;
 
+import model.events.Event;
+import model.events.Tornado;
+
 import java.util.Observable;
+
+import java.util.Random;
 
 /**
  * The model for the game.  Updates based on user interactions and choices.
@@ -28,7 +33,7 @@ public class GameModel extends Observable {
     public static final int DEFAULT_STORAGE = 100;
     public static final int DEFAULT_TOOLS = 100;
     public static final int DEFAULT_MORALE = 100;
-    public static final int DEFAULT_GROUP_SIZE = 25;
+    public static final int DEFAULT_GROUP_SIZE = 5;
 
     /**
      * Manual constructor for testing.
@@ -108,7 +113,8 @@ public class GameModel extends Observable {
                 "Water: " + water + "\n" +
                 "Clothing: " + clothing + "\n" +
                 "Tools: " + tools + "\n" +
-                "Morale: " + morale + "\n";
+                "Morale: " + morale + "\n" +
+                "Group Size: " + groupSize + "\n";
     }
 
     /**
@@ -120,6 +126,22 @@ public class GameModel extends Observable {
         if(food > DEFAULT_FOOD) {
             food = DEFAULT_FOOD;
         }
+    }
+
+    /**
+     * Method to create a random event if one is randomly chosen to occur.
+     * @return Event object representing the created event
+     */
+    public Event createEvent() {
+        Random rand = new Random();
+        double isEvent = rand.nextInt(100) + 1;
+        if(isEvent > 0){
+            int chooseEvent = rand.nextInt(100) + 1;
+            if(chooseEvent > 0){
+                return new Tornado(this);
+            }
+        }
+        return null;
     }
 
     /**
