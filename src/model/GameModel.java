@@ -1,6 +1,7 @@
 package model;
 
 import model.events.Event;
+import model.events.NewTools;
 import model.events.Tornado;
 
 import java.util.Observable;
@@ -36,7 +37,7 @@ public class GameModel extends Observable {
     public static final int DEFAULT_STORAGE = 100;
     public static final int DEFAULT_TOOLS = 100;
     public static final int DEFAULT_MORALE = 100;
-    public static final int DEFAULT_GROUP_SIZE = 15;
+    public static final int DEFAULT_GROUP_SIZE = 5;
 
     /**
      * Manual constructor for testing.
@@ -74,19 +75,6 @@ public class GameModel extends Observable {
         this.morale = DEFAULT_MORALE;
         this.groupSize = DEFAULT_GROUP_SIZE;
         this.rand = new Random();
-    }
-
-    /**
-     * Method for reducing a players health.
-     * @param damage int representing the amount a damage a player is to take
-     */
-    public void takeDamage(int damage){
-        this.setHealth(this.getHealth() - damage);
-        // Ensures that health does not drop below zero and checks for death
-        if(this.getHealth() < 0){
-            this.setHealth(0);
-            System.out.println("YOU ARE KILL");
-        }
     }
 
     /**
@@ -136,12 +124,19 @@ public class GameModel extends Observable {
      */
     public Event createEvent() {
         int isEvent = rand.nextInt(100) + 1;
+        System.out.println("Is Event: " + isEvent);
+
+        // Check if an event is triggered
         if(isEvent > 50){
             int chooseEvent = rand.nextInt(100) + 1;
-            if(chooseEvent > 0){
+            System.out.println("Choose Event: " + chooseEvent);
+            if(chooseEvent > 50){
                 return new Tornado(this);
+            } else {
+                return new NewTools(this);
             }
         }
+        // No event is triggered
         return null;
     }
 
@@ -220,7 +215,6 @@ public class GameModel extends Observable {
      * Method to modify the health based on the other resource values.
      */
     public void modifyHealth() {
-        System.out.println(food + water + clothing + tools + morale);
         double ratio = (double) (food + water + clothing + tools + morale) / 500;
         health = (int) (100 * ratio);
     }
@@ -230,9 +224,11 @@ public class GameModel extends Observable {
      * @param amount int representing the amount to change
      */
     public void alterFood(int amount) {
-        food -= amount;
+        food += amount;
         if(food < 0){
             food = 0;
+        } else if(food > DEFAULT_FOOD) {
+            food = DEFAULT_FOOD;
         }
     }
 
@@ -241,9 +237,11 @@ public class GameModel extends Observable {
      * @param amount int representing the amount to change
      */
     public void alterWater(int amount) {
-        water -= amount;
+        water += amount;
         if(water < 0){
             water = 0;
+        } else if(water > DEFAULT_WATER) {
+            water = DEFAULT_WATER;
         }
     }
 
@@ -252,9 +250,11 @@ public class GameModel extends Observable {
      * @param amount int representing the amount to change
      */
     public void alterClothing(int amount) {
-        clothing -= amount;
+        clothing += amount;
         if(clothing < 0){
             clothing = 0;
+        } else if(clothing > DEFAULT_CLOTHING) {
+            clothing = DEFAULT_CLOTHING;
         }
     }
 
@@ -263,9 +263,11 @@ public class GameModel extends Observable {
      * @param amount int representing the amount to change
      */
     public void alterTools(int amount) {
-        tools -= amount;
+        tools += amount;
         if(tools < 0){
             tools = 0;
+        } else if(tools > DEFAULT_TOOLS) {
+            tools = DEFAULT_TOOLS;
         }
     }
 
@@ -274,9 +276,11 @@ public class GameModel extends Observable {
      * @param amount int representing the amount to change
      */
     public void alterMorale(int amount) {
-        morale -= amount;
+        morale += amount;
         if(morale < 0){
             morale = 0;
+        } else if(morale > DEFAULT_MORALE) {
+            morale = DEFAULT_MORALE;
         }
     }
 
@@ -285,7 +289,7 @@ public class GameModel extends Observable {
      * @param amount int representing the amount to change
      */
     public void alterGroupSize(int amount) {
-        groupSize -= amount;
+        groupSize += amount;
         if(groupSize < 0){
             groupSize = 0;
         }

@@ -1,5 +1,6 @@
 package gui;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -12,12 +13,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import model.Allocations;
-import model.events.GameLoop;
-import model.events.Event;
+import model.events.*;
 import model.GameModel;
-import model.events.StartGame;
-import model.events.StartRound;
-import model.events.Tornado;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -157,10 +154,10 @@ public class GameInterface extends Application implements Observer {
             eventOption2 = Tornado.HIDE_BUTTON;
             nextOption = Tornado.NEXT_BUTTON;
         } else {
-            eventName = Tornado.EVENT_NAME;
-            eventOption1 = Tornado.RUN_BUTTON;
-            eventOption2 = Tornado.HIDE_BUTTON;
-            nextOption = Tornado.NEXT_BUTTON;
+            eventName = NewTools.EVENT_NAME;
+            eventOption1 = NewTools.TRAIN_BUTTON;
+            eventOption2 = NewTools.PASS_BUTTON;
+            nextOption = NewTools.NEXT_BUTTON;
         }
 
         // Updates and starts the event
