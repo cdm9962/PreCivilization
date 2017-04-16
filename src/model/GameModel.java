@@ -25,6 +25,9 @@ public class GameModel extends Observable {
     private Allocations allocations;
     private Location location;
 
+    // The random number generator
+    private Random rand;
+
     // Constant/Default values for the game model
     public static final int DEFAULT_HEALTH = 100;
     public static final int DEFAULT_FOOD = 100;
@@ -33,7 +36,7 @@ public class GameModel extends Observable {
     public static final int DEFAULT_STORAGE = 100;
     public static final int DEFAULT_TOOLS = 100;
     public static final int DEFAULT_MORALE = 100;
-    public static final int DEFAULT_GROUP_SIZE = 5;
+    public static final int DEFAULT_GROUP_SIZE = 15;
 
     /**
      * Manual constructor for testing.
@@ -55,6 +58,7 @@ public class GameModel extends Observable {
         this.tools = tools;
         this.morale = morale;
         this.groupSize = groupSize;
+        this.rand = new Random();
     }
 
     /**
@@ -69,6 +73,7 @@ public class GameModel extends Observable {
         this.tools = DEFAULT_TOOLS;
         this.morale = DEFAULT_MORALE;
         this.groupSize = DEFAULT_GROUP_SIZE;
+        this.rand = new Random();
     }
 
     /**
@@ -89,7 +94,13 @@ public class GameModel extends Observable {
      * @return boolean representing if the player has lost
      */
     public boolean isDead(){
-        return this.getHealth() == 0;
+        if(health == 50) {
+            return true;
+        } else if (food == 0 || water == 0 || clothing == 0 || tools == 0 || morale == 0){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
@@ -102,6 +113,8 @@ public class GameModel extends Observable {
         this.modifyClothing();
         this.modifyTools();
         this.modifyMorale();
+        this.modifyGroupSize();
+        this.modifyHealth();
     }
 
     /**
@@ -118,6 +131,21 @@ public class GameModel extends Observable {
     }
 
     /**
+     * Method to create a random event if one is randomly chosen to occur.
+     * @return Event object representing the created event
+     */
+    public Event createEvent() {
+        int isEvent = rand.nextInt(100) + 1;
+        if(isEvent > 50){
+            int chooseEvent = rand.nextInt(100) + 1;
+            if(chooseEvent > 0){
+                return new Tornado(this);
+            }
+        }
+        return null;
+    }
+
+    /**
      * Method to modify the food value based on the user allocations and the game location.
      */
     public void modifyFood() {
@@ -126,22 +154,6 @@ public class GameModel extends Observable {
         if(food > DEFAULT_FOOD) {
             food = DEFAULT_FOOD;
         }
-    }
-
-    /**
-     * Method to create a random event if one is randomly chosen to occur.
-     * @return Event object representing the created event
-     */
-    public Event createEvent() {
-        Random rand = new Random();
-        double isEvent = rand.nextInt(100) + 1;
-        if(isEvent > 0){
-            int chooseEvent = rand.nextInt(100) + 1;
-            if(chooseEvent > 0){
-                return new Tornado(this);
-            }
-        }
-        return null;
     }
 
     /**
@@ -188,16 +200,97 @@ public class GameModel extends Observable {
         }
     }
 
+    /**
+     * Method to modify the group size randomly with each iteration.
+     */
     public void modifyGroupSize() {
-
+        int changeSize = rand.nextInt(100) + 1;
+        if(changeSize > 90) {
+            alterGroupSize(2);
+        } else if(changeSize > 80) {
+            alterGroupSize(1);
+        } else if (changeSize > 70) {
+            alterGroupSize(-1);
+        } else if(changeSize > 60) {
+            alterGroupSize(-2);
+        }
     }
 
+    /**
+     * Method to modify the health based on the other resource values.
+     */
+    public void modifyHealth() {
+        System.out.println(food + water + clothing + tools + morale);
+        double ratio = (double) (food + water + clothing + tools + morale) / 500;
+        health = (int) (100 * ratio);
+    }
+
+    /**
+     * Method to change the food value by a certain amount.
+     * @param amount int representing the amount to change
+     */
+    public void alterFood(int amount) {
+        food -= amount;
+        if(food < 0){
+            food = 0;
+        }
+    }
+
+    /**
+     * Method to change the water value by a certain amount.
+     * @param amount int representing the amount to change
+     */
+    public void alterWater(int amount) {
+        water -= amount;
+        if(water < 0){
+            water = 0;
+        }
+    }
+
+    /**
+     * Method to change the clothing value by a certain amount.
+     * @param amount int representing the amount to change
+     */
+    public void alterClothing(int amount) {
+        clothing -= amount;
+        if(clothing < 0){
+            clothing = 0;
+        }
+    }
+
+    /**
+     * Method to change the tools value by a certain amount.
+     * @param amount int representing the amount to change
+     */
+    public void alterTools(int amount) {
+        tools -= amount;
+        if(tools < 0){
+            tools = 0;
+        }
+    }
+
+    /**
+     * Method to change the morale value by a certain amount.
+     * @param amount int representing the amount to change
+     */
+    public void alterMorale(int amount) {
+        morale -= amount;
+        if(morale < 0){
+            morale = 0;
+        }
+    }
+
+    /**
+     * Method to change the group size value by a certain amount.
+     * @param amount int representing the amount to change
+     */
     public void alterGroupSize(int amount) {
         groupSize -= amount;
         if(groupSize < 0){
             groupSize = 0;
         }
     }
+
     public void setLocation(){
         this.location = new Location(Location.Locations.FOREST);
     }
@@ -218,32 +311,16 @@ public class GameModel extends Observable {
         return food;
     }
 
-    public void setFood(int food) {
-        this.food = food;
-    }
-
     public int getWater() {
         return water;
-    }
-
-    public void setWater(int water) {
-        this.water = water;
     }
 
     public int getClothing() {
         return clothing;
     }
 
-    public void setClothing(int clothing) {
-        this.clothing = clothing;
-    }
-
     public int getTools() {
         return tools;
-    }
-
-    public void setTools(int tools) {
-        this.tools = tools;
     }
 
     public int getHappiness(){ return this.morale; }
@@ -262,16 +339,9 @@ public class GameModel extends Observable {
         return groupSize;
     }
 
-    public void setGroupSize(int groupSize) {
-        this.groupSize = groupSize;
-    }
 
     public int getMorale() {
         return morale;
-    }
-
-    public void setMorale(int morale) {
-        this.morale = morale;
     }
 
     public Allocations getAllocations() {

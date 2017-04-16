@@ -134,7 +134,7 @@ public class GameInterface extends Application implements Observer {
             });
 
         // Starts the special event if one is active
-        } else if(currentEvent instanceof Tornado) {
+        } else {
             runEvent();
         }
     }

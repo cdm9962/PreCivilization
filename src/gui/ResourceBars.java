@@ -98,7 +98,7 @@ public class ResourceBars {
         grid.add(waterLabel, col, row);
         col++;
         HBox waterBox = new HBox();
-        waterBox.setMinSize(model.getWater(), DEFAULT_HIGHT);
+        waterBox.setPrefSize(model.getWater(), DEFAULT_HIGHT);
         waterBox.setStyle(WATER_COLOR);
         grid.add(waterBox, col, row);
         col--;
@@ -110,7 +110,7 @@ public class ResourceBars {
         grid.add(clothingLabel, col, row);
         col++;
         HBox clothingBox = new HBox();
-        clothingBox.setMinSize(model.getClothing(), DEFAULT_HIGHT);
+        clothingBox.setPrefSize(model.getClothing(), DEFAULT_HIGHT);
         clothingBox.setStyle(CLOTHING_COLOR);
         grid.add(clothingBox, col, row);
         col--;
@@ -122,7 +122,7 @@ public class ResourceBars {
         grid.add(toolsLabel, col, row);
         col++;
         HBox toolsBox = new HBox();
-        toolsBox.setMinSize(model.getTools(), DEFAULT_HIGHT);
+        toolsBox.setPrefSize(model.getTools(), DEFAULT_HIGHT);
         toolsBox.setStyle(TOOLS_COLOR);
         grid.add(toolsBox, col, row);
         col--;
@@ -134,7 +134,7 @@ public class ResourceBars {
         grid.add(moraleLabel, col, row);
         col++;
         HBox moraleBox = new HBox();
-        moraleBox.setMinSize(model.getHappiness(), DEFAULT_HIGHT);
+        moraleBox.setPrefSize(model.getHappiness(), DEFAULT_HIGHT);
         moraleBox.setStyle(MORALE_COLOR);
         grid.add(moraleBox, col, row);
         col--;
