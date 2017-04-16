@@ -69,12 +69,15 @@ public class GameInterface extends Application implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        // Updates the resource bars on the UI to reflect the previous event
         resourceBars.updateResourceBars();
+
         // Launches the first game section
         if(currentEvent instanceof StartGame) {
             topLabel.setText(StartGame.EVENT_NAME);
             updatePlayScreen(currentEvent.startEvent());
 
+            // Creates user interaction buttons
             Button nextButton = new Button(StartGame.NEXT_BUTTON);
             userButtons.getChildren().set(0, nextButton);
             nextButton.setOnAction(event1 -> {
@@ -94,6 +97,7 @@ public class GameInterface extends Application implements Observer {
             GridPane allocationGrid = makeAllocationGrid();
             playScreen.setLeft(allocationGrid);
 
+            // Creates user interaction buttons
             Button nextButton = new Button(StartRound.NEXT_BUTTON);
             userButtons.getChildren().set(0, nextButton);
             nextButton.setOnAction(event3 -> {
@@ -108,6 +112,7 @@ public class GameInterface extends Application implements Observer {
             topLabel.setText(GameLoop.EVENT_NAME);
             updatePlayScreen(currentEvent.startEvent());
 
+            // Creates user interaction buttons
             Button nextButton = new Button(GameLoop.NEXT_BUTTON);
             userButtons.getChildren().set(0, nextButton);
             nextButton.setOnAction(event -> {
@@ -128,40 +133,70 @@ public class GameInterface extends Application implements Observer {
                 });
             });
 
-        // Starts the Tornado event
+        // Starts the special event if one is active
         } else if(currentEvent instanceof Tornado) {
-            topLabel.setText(Tornado.EVENT_NAME);
-            updatePlayScreen(currentEvent.startEvent());
-
-            Button runButton = new Button(Tornado.RUN_BUTTON);
-            userButtons.getChildren().set(0, runButton);
-            runButton.setOnAction(event -> {
-                updatePlayScreen(currentEvent.endEvent(model, Tornado.RUN_BUTTON));
-                Button nextButton2 = new Button(Tornado.NEXT_BUTTON);
-                userButtons.getChildren().set(0, nextButton2);
-                userButtons.getChildren().remove(1);
-                nextButton2.setOnAction(event2 -> {
-                    currentEvent = new StartRound(model);
-                    update(model, this);
-                });
-
-
-            });
-
-            Button hideButton = new Button(Tornado.HIDE_BUTTON);
-            userButtons.add(hideButton, 1, 0);
-            hideButton.setOnAction(event -> {
-                updatePlayScreen(currentEvent.endEvent(model, Tornado.HIDE_BUTTON));
-                Button nextButton2 = new Button(Tornado.NEXT_BUTTON);
-                userButtons.getChildren().set(0, nextButton2);
-                userButtons.getChildren().remove(1);
-                nextButton2.setOnAction(event2 -> {
-                    currentEvent = new StartRound(model);
-                    update(model, this);
-                });
-
-            });
+            runEvent();
         }
+    }
+
+
+    /**
+     * Method to run a special event with user input.
+     */
+    public void runEvent() {
+        // String values for the event
+        String eventName;
+        String eventOption1;
+        String eventOption2;
+        String nextOption;
+
+        // Checks for the event type
+        if(currentEvent instanceof Tornado) {
+            eventName = Tornado.EVENT_NAME;
+            eventOption1 = Tornado.RUN_BUTTON;
+            eventOption2 = Tornado.HIDE_BUTTON;
+            nextOption = Tornado.NEXT_BUTTON;
+        } else {
+            eventName = Tornado.EVENT_NAME;
+            eventOption1 = Tornado.RUN_BUTTON;
+            eventOption2 = Tornado.HIDE_BUTTON;
+            nextOption = Tornado.NEXT_BUTTON;
+        }
+
+        // Updates and starts the event
+        topLabel.setText(eventName);
+        updatePlayScreen(currentEvent.startEvent());
+
+        // Creates the first user option
+        Button option1Button = new Button(eventOption1);
+        userButtons.getChildren().set(0, option1Button);
+        option1Button.setOnAction(event -> {
+            updatePlayScreen(currentEvent.endEvent(model, eventOption1));
+            Button nextButton = new Button(nextOption);
+            userButtons.getChildren().set(0, nextButton);
+            userButtons.getChildren().remove(1);
+            nextButton.setOnAction(event2 -> {
+                currentEvent = new StartRound(model);
+                update(model, this);
+            });
+
+
+        });
+
+        // Creates the second user option
+        Button option2Button = new Button(eventOption2);
+        userButtons.add(option2Button, 1, 0);
+        option2Button.setOnAction(event -> {
+            updatePlayScreen(currentEvent.endEvent(model, eventOption2));
+            Button nextButton2 = new Button(nextOption);
+            userButtons.getChildren().set(0, nextButton2);
+            userButtons.getChildren().remove(1);
+            nextButton2.setOnAction(event2 -> {
+                currentEvent = new StartRound(model);
+                update(model, this);
+            });
+
+        });
     }
 
     /**
