@@ -2,6 +2,7 @@ package model;
 
 import model.events.Event;
 import model.events.NewTools;
+import model.events.RiverCrossing;
 import model.events.Tornado;
 
 import java.util.Observable;
@@ -127,13 +128,15 @@ public class GameModel extends Observable {
         System.out.println("Is Event: " + isEvent);
 
         // Check if an event is triggered
-        if(isEvent > 50){
+        if(isEvent > 50) {
             int chooseEvent = rand.nextInt(100) + 1;
             System.out.println("Choose Event: " + chooseEvent);
-            if(chooseEvent > 50){
+            if(chooseEvent > 99) {
                 return new Tornado(this);
-            } else {
+            } else if(chooseEvent > 98) {
                 return new NewTools(this);
+            } else {
+                return new RiverCrossing(this);
             }
         }
         // No event is triggered
