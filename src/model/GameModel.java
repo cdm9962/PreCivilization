@@ -128,11 +128,11 @@ public class GameModel extends Observable {
         if(isEvent > 50) {
             int chooseEvent = rand.nextInt(100) + 1;
             System.out.println("Choose Event: " + chooseEvent);
-            if(chooseEvent > 99) {
+            if(chooseEvent > 75) {
                 return new Tornado(this);
-            } else if(chooseEvent > 99) {
+            } else if(chooseEvent > 50) {
                 return new NewTools(this);
-            } else if(chooseEvent > 99){
+            } else if(chooseEvent > 25){
                 return new RiverCrossing(this);
             } else {
                 return new OpposingGroup(this);
