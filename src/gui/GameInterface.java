@@ -158,11 +158,16 @@ public class GameInterface extends Application implements Observer {
             eventOption1 = NewTools.TRAIN_BUTTON;
             eventOption2 = NewTools.PASS_BUTTON;
             nextOption = NewTools.NEXT_BUTTON;
-        } else {
+        } else if(currentEvent instanceof RiverCrossing) {
             eventName = RiverCrossing.EVENT_NAME;
             eventOption1 = RiverCrossing.BUILD_BUTTON;
             eventOption2 = RiverCrossing.SWIM_BUTTON;
             nextOption = RiverCrossing.NEXT_BUTTON;
+        } else {
+            eventName = OpposingGroup.EVENT_NAME;
+            eventOption1 = OpposingGroup.STAY_BUTTON;
+            eventOption2 = OpposingGroup.LEAVE_BUTTON;
+            nextOption = OpposingGroup.NEXT_BUTTON;
         }
 
         // Updates and starts the event

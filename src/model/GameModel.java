@@ -1,9 +1,6 @@
 package model;
 
-import model.events.Event;
-import model.events.NewTools;
-import model.events.RiverCrossing;
-import model.events.Tornado;
+import model.events.*;
 
 import java.util.Observable;
 
@@ -133,10 +130,12 @@ public class GameModel extends Observable {
             System.out.println("Choose Event: " + chooseEvent);
             if(chooseEvent > 99) {
                 return new Tornado(this);
-            } else if(chooseEvent > 98) {
+            } else if(chooseEvent > 99) {
                 return new NewTools(this);
-            } else {
+            } else if(chooseEvent > 99){
                 return new RiverCrossing(this);
+            } else {
+                return new OpposingGroup(this);
             }
         }
         // No event is triggered

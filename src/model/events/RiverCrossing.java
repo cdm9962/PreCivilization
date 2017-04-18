@@ -12,7 +12,7 @@ public class RiverCrossing extends Event {
     private GameModel model;
 
     // Constant string values for the RiverCrossing event
-    public static final String EVENT_NAME = "RiverCrossing";
+    public static final String EVENT_NAME = "River Crossing";
     public static final String NEXT_BUTTON = "Next";
     public static final String BUILD_BUTTON = "Build";
     public static final String SWIM_BUTTON = "Swim";
