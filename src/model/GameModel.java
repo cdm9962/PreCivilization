@@ -35,7 +35,7 @@ public class GameModel extends Observable {
     public static final int DEFAULT_STORAGE = 100;
     public static final int DEFAULT_TOOLS = 100;
     public static final int DEFAULT_MORALE = 100;
-    public static final int DEFAULT_GROUP_SIZE = 5;
+    public static final int DEFAULT_GROUP_SIZE = 15;
 
     /**
      * Manual constructor for testing.
@@ -300,6 +300,8 @@ public class GameModel extends Observable {
     public void setLocation(){
         this.location = new Location(Location.Locations.FOREST);
     }
+
+    public Location getLocation() { return this.location; }
 
     ///
     /// Getter and Setter methods for the private state.

@@ -35,6 +35,7 @@ public class Location {
      * @param location represents the ecosystem type.
      */
     public Location(Locations location){
+        // Setup forest location
         if(location.equals(Locations.FOREST)){
             this.huntingRate = HIGH_RATE;
             this.gatheringRate = HIGH_RATE;
@@ -42,6 +43,33 @@ public class Location {
             this.clothingRate = HIGH_RATE;
             this.storageRate = MEDIUM_RATE;
             this.toolsRate = MEDIUM_RATE;
+            this.moraleRate = HIGH_RATE;
+            // Setup desert location
+        } else if(location.equals(Locations.DESERT)) {
+            this.huntingRate = MEDIUM_RATE;
+            this.gatheringRate = LOW_RATE;
+            this.waterRate = LOW_RATE;
+            this.clothingRate = MEDIUM_RATE;
+            this.storageRate = MEDIUM_RATE;
+            this.toolsRate = HIGH_RATE;
+            this.moraleRate = LOW_RATE;
+            // Setup tundra location
+        } else if(location.equals(Locations.TUNDRA)) {
+            this.huntingRate = HIGH_RATE;
+            this.gatheringRate = MEDIUM_RATE;
+            this.waterRate = MEDIUM_RATE;
+            this.clothingRate = MEDIUM_RATE;
+            this.storageRate = MEDIUM_RATE;
+            this.toolsRate = MEDIUM_RATE;
+            this.moraleRate = MEDIUM_RATE;
+            // Setup jungle location
+        } else if(location.equals(Locations.JUNGLE)) {
+            this.huntingRate = HIGH_RATE;
+            this.gatheringRate = HIGH_RATE;
+            this.waterRate = HIGH_RATE;
+            this.clothingRate = HIGH_RATE;
+            this.storageRate = MEDIUM_RATE;
+            this.toolsRate = LOW_RATE;
             this.moraleRate = HIGH_RATE;
         }
     }
@@ -72,5 +100,17 @@ public class Location {
 
     public double getMoraleRate() {
         return moraleRate;
+    }
+
+    @Override
+    public String toString() {
+        return "Location:" + "\n" +
+                "\thuntingRate: " + huntingRate + "\n" +
+                "\tgatheringRate: " + gatheringRate + "\n" +
+                "\twaterRate: " + waterRate + "\n" +
+                "\tclothingRate: " + clothingRate + "\n" +
+                "\tstorageRate: " + storageRate + "\n" +
+                "\ttoolsRate: " + toolsRate + "\n" +
+                "\tmoraleRate: " + moraleRate + "\n";
     }
 }
