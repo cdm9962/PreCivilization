@@ -56,7 +56,7 @@ public class OpposingGroup extends Event {
                     "10 gallons of water is used along the journey.\n" +
                     "2 members from the opposing group decide to join you in your journey.\n";
 
-            // Error
+        // Error
         } else {
             return null;
         }

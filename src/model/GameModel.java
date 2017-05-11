@@ -298,7 +298,7 @@ public class GameModel extends Observable {
     }
 
     public void setLocation(){
-        this.location = new Location(Location.Locations.FOREST);
+        this.location = new Location(Location.Locations.Forest);
     }
 
     public Location getLocation() { return this.location; }

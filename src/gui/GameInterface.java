@@ -91,7 +91,7 @@ public class GameInterface extends Application implements Observer {
         } else if(currentEvent instanceof StartRound){
             topLabel.setText(StartRound.EVENT_NAME);
             updatePlayScreen(currentEvent.startEvent());
-            //playScreen.setCenter(new Pane(new LocationDisplay(model).createLocationDisplay()));
+            playScreen.setCenter(new Pane(new LocationDisplay(model).createLocationDisplay()));
             GridPane allocationGrid = makeAllocationGrid();
             playScreen.setLeft(allocationGrid);
 

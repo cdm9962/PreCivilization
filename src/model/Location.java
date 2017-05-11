@@ -14,6 +14,7 @@ public class Location {
     private double storageRate;
     private double toolsRate;
     private double moraleRate;
+    private Locations location;
 
     // Constant rate values based on the location
     public final double VERY_HIGH_RATE = 1.25;
@@ -22,12 +23,16 @@ public class Location {
     public final double LOW_RATE = 0.50;
     public final double VERY_LOW_RATE = 0.25;
 
+    // Constant image files and their sources for the locations
+    public final String FOREST_FILE = "/resources/forest.jpeg";
+    public final String FORET_SOURCE = "https://static.pexels.com/photos/38136/pexels-photo-38136.jpeg";
+
     // Enum to hold the possible locations
     public enum Locations {
-        FOREST,
-        DESERT,
-        TUNDRA,
-        JUNGLE
+        Forest,
+        Desert,
+        Tundra,
+        Jungle
     }
 
     /**
@@ -36,7 +41,7 @@ public class Location {
      */
     public Location(Locations location){
         // Setup forest location
-        if(location.equals(Locations.FOREST)){
+        if(location.equals(Locations.Forest)){
             this.huntingRate = HIGH_RATE;
             this.gatheringRate = HIGH_RATE;
             this.waterRate = MEDIUM_RATE;
@@ -44,8 +49,9 @@ public class Location {
             this.storageRate = MEDIUM_RATE;
             this.toolsRate = MEDIUM_RATE;
             this.moraleRate = HIGH_RATE;
+            this.location = Locations.Forest;
             // Setup desert location
-        } else if(location.equals(Locations.DESERT)) {
+        } else if(location.equals(Locations.Desert)) {
             this.huntingRate = MEDIUM_RATE;
             this.gatheringRate = LOW_RATE;
             this.waterRate = LOW_RATE;
@@ -54,7 +60,7 @@ public class Location {
             this.toolsRate = HIGH_RATE;
             this.moraleRate = LOW_RATE;
             // Setup tundra location
-        } else if(location.equals(Locations.TUNDRA)) {
+        } else if(location.equals(Locations.Tundra)) {
             this.huntingRate = HIGH_RATE;
             this.gatheringRate = MEDIUM_RATE;
             this.waterRate = MEDIUM_RATE;
@@ -63,7 +69,7 @@ public class Location {
             this.toolsRate = MEDIUM_RATE;
             this.moraleRate = MEDIUM_RATE;
             // Setup jungle location
-        } else if(location.equals(Locations.JUNGLE)) {
+        } else if(location.equals(Locations.Jungle)) {
             this.huntingRate = HIGH_RATE;
             this.gatheringRate = HIGH_RATE;
             this.waterRate = HIGH_RATE;
@@ -82,9 +88,7 @@ public class Location {
         return gatheringRate;
     }
 
-    public double getWaterRate() {
-        return waterRate;
-    }
+    public double getWaterRate() { return waterRate; }
 
     public double getClothingRate() {
         return clothingRate;
@@ -104,13 +108,12 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location:" + "\n" +
-                "\thuntingRate: " + huntingRate + "\n" +
-                "\tgatheringRate: " + gatheringRate + "\n" +
-                "\twaterRate: " + waterRate + "\n" +
-                "\tclothingRate: " + clothingRate + "\n" +
-                "\tstorageRate: " + storageRate + "\n" +
-                "\ttoolsRate: " + toolsRate + "\n" +
-                "\tmoraleRate: " + moraleRate + "\n";
+        return "\t\tHunting Rate: " + huntingRate + "\n" +
+                "\t\tGathering Rate: " + gatheringRate + "\n" +
+                "\t\tWater Rate: " + waterRate + "\n" +
+                "\t\tClothing Rate: " + clothingRate + "\n" +
+                "\t\tStorage Rate: " + storageRate + "\n" +
+                "\t\tTools Rate: " + toolsRate + "\n" +
+                "\t\tMorale Rate: " + moraleRate + "\n";
     }
 }
