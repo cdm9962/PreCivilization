@@ -37,7 +37,7 @@ public class LocationDisplay {
      */
     public BorderPane createLocationDisplay() {
         // Creates the location image
-        Image image = new Image(getClass().getResource(model.getLocation().FOREST_FILE).toExternalForm());
+        Image image = new Image(getClass().getResource(model.getLocation().getCurrImage()).toExternalForm());
         ImageView logo = new ImageView(image);
         logo.setFitHeight(200.0);
         logo.setFitWidth(200.0);
@@ -50,15 +50,15 @@ public class LocationDisplay {
         locationLabel.setPadding(new Insets(0.0, 600.0, 0.0, 0.0));
         locationDisplay.setCenter(locationLabel);
 
-        Label locationTypeLabel = new Label("Forest Location");
+        Label locationTypeLabel = new Label(model.getLocation().getCurrLocation() + " Location");
         locationTypeLabel.setPadding(new Insets(0.0, 0.0, 5.0, 0.0));
         locationDisplay.setTop(locationTypeLabel);
 
-        Label sourceLabel = new Label("Sourced from: " + model.getLocation().FORET_SOURCE);
+        Label sourceLabel = new Label("Sourced from: " + model.getLocation().getCurrSource());
         sourceLabel.setPadding(new Insets(5.0));
         locationDisplay.setBottom(sourceLabel);
 
-        locationDisplay.setPadding(new Insets(0.0, 10.0, 0.0, 30.0));
+        locationDisplay.setPadding(new Insets(0.0, 10.0, 0.0, 100.0));
         return locationDisplay;
     }
 }

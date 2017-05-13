@@ -133,6 +133,8 @@ public class GameInterface extends Application implements Observer {
 
         // Starts the special event if one is active
         } else {
+            // Clears center location display
+            playScreen.setCenter(new Label(""));
             runEvent();
         }
     }
@@ -357,7 +359,7 @@ public class GameInterface extends Application implements Observer {
      */
     private BorderPane makeBorder(){
         BorderPane border = new BorderPane();
-        border.setPadding(new Insets(5.0));
+        border.setPadding(new Insets(10.0));
         border.setTop(makeTopLabel());
         border.setLeft(makeLeftLabel());
         resourceBars = new ResourceBars(model);

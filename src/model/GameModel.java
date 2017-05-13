@@ -122,12 +122,10 @@ public class GameModel extends Observable {
      */
     public Event createEvent() {
         int isEvent = rand.nextInt(100) + 1;
-        System.out.println("Is Event: " + isEvent);
 
         // Check if an event is triggered
         if(isEvent > 50) {
             int chooseEvent = rand.nextInt(100) + 1;
-            System.out.println("Choose Event: " + chooseEvent);
             if(chooseEvent > 75) {
                 return new Tornado(this);
             } else if(chooseEvent > 50) {
@@ -298,7 +296,17 @@ public class GameModel extends Observable {
     }
 
     public void setLocation(){
-        this.location = new Location(Location.Locations.Forest);
+        int isLocation = rand.nextInt(100) + 1;
+        System.out.println(isLocation);
+        if(isLocation > 75) {
+            this.location = new Location(Location.Type.Forest);
+        } else if(isLocation > 50) {
+            this.location = new Location(Location.Type.Desert);
+        } else if(isLocation > 25){
+            this.location = new Location(Location.Type.Jungle);
+        } else {
+            this.location = new Location(Location.Type.Tundra);
+        }
     }
 
     public Location getLocation() { return this.location; }
