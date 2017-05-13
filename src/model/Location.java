@@ -30,6 +30,10 @@ public class Location {
     public final String FORET_SOURCE = "https://static.pexels.com/photos/38136/pexels-photo-38136.jpeg";
     public final String DESERT_FILE = "/resources/desert.jpeg";
     public final String DESERT_SOURCE = "http://wallpaper-gallery.net/single/desert/desert-7.html";
+    public final String TUNDRA_FILE = "/resources/tundra.png";
+    public final String TUNDRA_SOURCE = "http://bsnscb.com/data/out/202/27086638-tundra-wallpapers.png";
+    public final String JUNGLE_FILE = "/resources/jungle.jpeg";
+    public final String JUNGLE_SOURCE = "http://weknownyourdreamz.com/images/jungle/jungle-04.jpg";
 
 
     // Enum to hold the possible locations
@@ -79,8 +83,8 @@ public class Location {
             this.toolsRate = MEDIUM_RATE;
             this.moraleRate = MEDIUM_RATE;
             this.location = Type.Tundra;
-            this.source = DESERT_SOURCE;
-            this.image = DESERT_FILE;
+            this.source = TUNDRA_SOURCE;
+            this.image = TUNDRA_FILE;
             // Setup jungle location
         } else if(location.equals(Type.Jungle)) {
             this.huntingRate = HIGH_RATE;
@@ -91,8 +95,8 @@ public class Location {
             this.toolsRate = LOW_RATE;
             this.moraleRate = HIGH_RATE;
             this.location = Type.Jungle;
-            this.source = DESERT_SOURCE;
-            this.image = DESERT_FILE;
+            this.source = JUNGLE_SOURCE;
+            this.image = JUNGLE_FILE;
         }
     }
 

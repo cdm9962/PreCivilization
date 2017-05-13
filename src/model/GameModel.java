@@ -295,9 +295,11 @@ public class GameModel extends Observable {
         }
     }
 
-    public void setLocation(){
+    /**
+     * Method to randomly set the game location.
+     */
+    public void chooseLocation(){
         int isLocation = rand.nextInt(100) + 1;
-        System.out.println(isLocation);
         if(isLocation > 75) {
             this.location = new Location(Location.Type.Forest);
         } else if(isLocation > 50) {
@@ -306,6 +308,16 @@ public class GameModel extends Observable {
             this.location = new Location(Location.Type.Jungle);
         } else {
             this.location = new Location(Location.Type.Tundra);
+        }
+    }
+
+    /**
+     * Method to determine if the location should be altered.
+     */
+    public void setLocation() {
+        int isChange = rand.nextInt(100) + 1;
+        if(this.location == null || isChange > 66){
+            chooseLocation();
         }
     }
 
