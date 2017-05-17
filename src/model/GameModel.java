@@ -13,6 +13,7 @@ import java.util.Random;
  */
 public class GameModel extends Observable {
     // The private state of the model
+    private int turns;
     private int health;
     private int food;
     private int water;
@@ -64,6 +65,7 @@ public class GameModel extends Observable {
      * Default constructor.
      */
     public GameModel(){
+        this.turns = 0;
         this.health = DEFAULT_HEALTH;
         this.food = DEFAULT_FOOD;
         this.water = DEFAULT_WATER;
@@ -80,9 +82,9 @@ public class GameModel extends Observable {
      * @return boolean representing if the player has lost
      */
     public boolean isDead(){
-        if(health == 50) {
+        if(health < 50) {
             return true;
-        } else if (food == 0 || water == 0 || clothing == 0 || tools == 0 || morale == 0){
+        } else if (food == 0 || water == 0 || clothing == 0 || tools == 0 || morale == 0) {
             return true;
         } else {
             return false;
@@ -94,6 +96,7 @@ public class GameModel extends Observable {
      * Method to modify the model values base don the user allocations and the game location.
      */
     public void modifyValues() {
+        this.turns++;
         this.modifyFood();
         this.modifyWater();
         this.modifyClothing();
@@ -379,4 +382,6 @@ public class GameModel extends Observable {
     public void setAllocations(Allocations allocations) {
         this.allocations = allocations;
     }
+
+    public int getTurns(){ return this.turns; }
 }

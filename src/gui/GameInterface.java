@@ -88,7 +88,7 @@ public class GameInterface extends Application implements Observer {
             });
 
         // Asks for users resource allocation and starts a game round
-        } else if(currentEvent instanceof StartRound){
+        } else if(currentEvent instanceof StartRound) {
             topLabel.setText(StartRound.EVENT_NAME);
             updatePlayScreen(currentEvent.startEvent());
             playScreen.setCenter(new Pane(new LocationDisplay(model).createLocationDisplay()));
@@ -104,6 +104,12 @@ public class GameInterface extends Application implements Observer {
                     update(model, this);
                 }
             });
+
+            // Checks if the group is dead
+            if(model.isDead()) {
+                currentEvent = new EndGame(model);
+                update(model, this);
+            }
 
         // Starts the main game loop
         } else if(currentEvent instanceof GameLoop){
@@ -132,6 +138,22 @@ public class GameInterface extends Application implements Observer {
             });
 
         // Starts the special event if one is active
+        } else if(currentEvent instanceof EndGame) {
+            topLabel.setText(EndGame.EVENT_NAME);
+            updatePlayScreen(currentEvent.startEvent());
+            playScreen.setCenter(new Label(""));
+
+            // Creates user interaction buttons
+            Button nextButton = new Button(EndGame.NEXT_BUTTON);
+            userButtons.getChildren().set(0, nextButton);
+            nextButton.setOnAction(event3 -> {
+                this.model = new GameModel();
+                currentEvent = new StartGame(model);
+                this.resourceBars = new ResourceBars(model);
+                playScreen.setRight(resourceBars.makeBars());
+                update(model, this);
+            });
+
         } else {
             // Clears center location display
             playScreen.setCenter(new Label(""));
